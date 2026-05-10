@@ -232,8 +232,8 @@ Output:
 
 ### Next Steps (choose one):
 
-@orchestrator-tdd agents/tasks/<id>.md     → TDD pipeline (executor-tdd → executor → tester → reviewer)
-@orchestrator-nontdd agents/tasks/<id>.md  → Standard pipeline (executor → tester → reviewer)
+@orchestrator-tdd agents/tasks/<id>.md     → TDD pipeline (executor-tdd → executor → tester → reviewer) — EVERY handoff is MANDATORY
+@orchestrator-nontdd agents/tasks/<id>.md  → Standard pipeline (executor → tester → reviewer) — EVERY handoff is MANDATORY
 
 Or review and edit the plan manually before proceeding.
 ```

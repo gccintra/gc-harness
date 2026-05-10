@@ -1,7 +1,7 @@
 ---
 description: Executes comprehensive tests, generates coverage reports, and logs all results. Reads from the unified task file.
 mode: subagent
-model: zhipuai/glm-5.1
+model: opencode-go/glm-5.1
 tools:
   firecrawl_*: true
   figma_*: true
@@ -140,26 +140,26 @@ Update task file status:
 ## Status: IN_PROGRESS → TESTING
 ```
 
-Then handoff to reviewer:
+Then handoff to reviewer — **MANDATORY, NON-NEGOTIABLE.** You MUST delegate. Never skip the reviewer.
 ```typescript
 task(
   category="unspecified-low",
   load_skills=["code-reviewer", "quick-review", "security-checker", "lessons-writer"],
   description="Review <id>",
-  prompt="Read agents/tasks/<id>.md and PROJECT_CONTEXT.md. Review all changed files for quality and security. Update the Evidence section in agents/tasks/<id>.md. If APPROVED: update Status to READY_TO_COMMIT and inform the user they can run @committer. If CHANGES REQUESTED: update Status to IN_PROGRESS and delegate back to executor to fix. DO NOT auto-commit. DO NOT call @committer.",
+  prompt="Read agents/tasks/<id>.md and PROJECT_CONTEXT.md. Review all changed files for quality and security. Update the Evidence section in agents/tasks/<id>.md. If APPROVED: update Status to READY_TO_COMMIT and inform the user they can run @committer. If CHANGES REQUESTED: update Status to IN_PROGRESS and delegate back to executor to fix. DO NOT auto-commit. DO NOT call @committer. This review handoff is MANDATORY.",
   run_in_background=false
 )
 ```
 
 ### If Tests FAIL:
 
-Return to executor with failure details:
+Return to executor with failure details — **MANDATORY, NON-NEGOTIABLE.**:
 ```typescript
 task(
   category="deep",
   load_skills=["senior-engineer-executor", "test-generator"],
   description="Fix test failures <id>",
-  prompt="Read agents/tasks/<id>.md. Fix the following test failures:\n<failure details with file:line and error messages>\nFix the issues, re-run tests, and hand off to tester again.",
+  prompt="Read agents/tasks/<id>.md. Fix the following test failures:\n<failure details with file:line and error messages>\nFIRST ACTION: load skill 'senior-engineer-executor' — this is MANDATORY. Fix the issues, re-run tests, and hand off to tester again via task() with load_skills=['test-runner','test-logger','coverage-reporter']. The tester MUST be called after every implementation.",
   run_in_background=false
 )
 ```

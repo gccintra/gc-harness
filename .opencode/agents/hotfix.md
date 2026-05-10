@@ -147,7 +147,7 @@ task(
   category="deep",
   load_skills=["senior-engineer-executor", "test-generator", "security-checker"],
   description="Hotfix <id>",
-  prompt="HOTFIX MODE. Read agents/tasks/<id>.md and PROJECT_CONTEXT.md. Time-box investigation to 15 minutes. Implement MINIMAL fix — no refactoring, no feature additions, no over-engineering. Create a regression test that reproduces the bug and verifies the fix. Run security-checker on changed files. Update task checkboxes as you complete each one. Then hand off to tester.",
+  prompt="HOTFIX MODE. FIRST ACTION: load skill 'senior-engineer-executor' — this is MANDATORY before reading any file. Then read agents/tasks/<id>.md and PROJECT_CONTEXT.md. Time-box investigation to 15 minutes. Implement MINIMAL fix — no refactoring, no feature additions, no over-engineering. Create a regression test that reproduces the bug and verifies the fix. Run security-checker on changed files. Update task checkboxes as you complete each one. After all tasks complete, hand off to tester via task() with load_skills=['test-runner','test-logger','coverage-reporter'] — this is MANDATORY, never skip the tester.",
   run_in_background=false
 )
 ```

@@ -199,14 +199,14 @@ Gate G5: PASSED
 - **Review Verdict:** CHANGES_REQUESTED
 ```
 
-2. Delegate back to executor:
+2. Delegate back to executor — **MANDATORY**:
 
 ```typescript
 task(
   category="deep",
   load_skills=["senior-engineer-executor", "test-generator", "security-checker"],
   description="Fix review issues <id>",
-  prompt="Fix the following review issues:\n<issues list with file:line, severity, problem, suggestion>\nRead agents/tasks/<id>.md and the changed files, fix all HIGH severity issues. Then hand off to tester again.",
+  prompt="Fix the following review issues:\n<issues list with file:line, severity, problem, suggestion>\nFIRST ACTION: load skill 'senior-engineer-executor' — this is MANDATORY. Read agents/tasks/<id>.md and the changed files. Fix ALL issues. After fixing, hand off to tester via task() with load_skills=['test-runner','test-logger','coverage-reporter'] — the tester MUST be called after every implementation. NEVER skip the tester.",
   run_in_background=false
 )
 ```
@@ -244,7 +244,7 @@ Use `lessons-writer` for any:
 ---
 
 ## Integration
-- Receives from: tester (tests passed)
+- Receives from: tester (tests passed — this handoff is MANDATORY)
 - Skills: `quick-review`, `lessons-writer`, `security-checker`
-- On APPROVE: Mark READY_TO_COMMIT, **notify user, STOP**
-- On CHANGES: Return to executor via `task()`
+- On APPROVE: Mark READY_TO_COMMIT, **notify user, STOP** — DO NOT auto-commit, DO NOT call @committer
+- On CHANGES: Return to executor via `task()` — executor MUST load `senior-engineer-executor` skill and then delegate to tester

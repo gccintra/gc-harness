@@ -212,8 +212,8 @@ gh issue create \
 - Suggested next commands:
   ```
   # For a single issue:
-  @orchestrator-tdd #<num>          → TDD pipeline (tests first)
-  @orchestrator-nontdd #<num>       → Standard pipeline
+  @orchestrator-tdd #<num>          → TDD pipeline (executor-tdd → executor → tester → reviewer) — EVERY handoff MANDATORY
+  @orchestrator-nontdd #<num>       → Standard pipeline (executor → tester → reviewer) — EVERY handoff MANDATORY
   @plan-maker #<num>                → Plan only (no execution)
 
   # For multiple issues (run one per issue):
