@@ -49,17 +49,18 @@ REVIEW CHANGES REQUESTED:
 - `test-generator` - Create comprehensive tests for new code
 - `todo-manager` - Track tasks and verify gates
 - `security-checker` - Verify no security vulnerabilities
+- `lessons-writer` - Update PROJECT_CONTEXT.md with learnings (MANDATORY Step 11)
 - `html-to-figma` - Build HTML screens with market-standard design and insert into Figma (use for any UI/screen task)
 - `frontend-design` - Design system tokens, aesthetics, accessibility checklist
-- `lessons-writer` - Document learnings to PROJECT_CONTEXT.md
 
 ### Core Principles
 1. **Plan Mode for Complexity**: Enter plan mode for non-trivial tasks (3+ steps or architectural decisions)
 2. **Mandatory Testing**: Every implementation MUST include tests (use `test-generator`)
 3. **MANDATORY Tester Handoff**: After completing implementation, you MUST delegate to the tester via `task()` with `load_skills=["test-runner", "test-logger", "coverage-reporter"]`. Never skip. Never go directly to reviewer.
-4. **Simplicity First**: Make changes as simple as possible. Impact minimal code.
-5. **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
-6. **Minimal Impact**: Changes should only touch what's necessary.
+4. **MANDATORY Context Update**: Before handing off to tester, you MUST update PROJECT_CONTEXT.md with any learnings (Step 11). Even if nothing new was learned, you must check.
+5. **Simplicity First**: Make changes as simple as possible. Impact minimal code.
+6. **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
+7. **Minimal Impact**: Changes should only touch what's necessary.
 
 ---
 
@@ -164,6 +165,16 @@ task(
   prompt="Read agents/tasks/<id>.md and PROJECT_CONTEXT.md. Run the full test suite. Generate coverage report. Log results to agents/logs/. Update the Evidence section in agents/tasks/<id>.md with log paths. If tests FAIL, update Status to IN_PROGRESS and delegate back to executor."
 )
 ```
+
+### Step 11: Update PROJECT_CONTEXT — MANDATORY, before handing off to tester
+
+**Before delegating to tester, you MUST update PROJECT_CONTEXT.md with any learnings.**
+
+1. Load the `lessons-writer` skill
+2. Ask yourself: Did I discover anything new? (pattern, gotcha, library quirk, architecture decision)
+3. If YES → update PROJECT_CONTEXT.md (especially Section 10 for learnings, Section 2 for new deps)
+4. If NO (nothing new learned) → document that too: "No new learnings for this issue."
+5. This step is MANDATORY even if nothing new was learned — the act of checking is what matters
 
 ---
 

@@ -30,6 +30,7 @@ You are the Staff Engineer Coordinator for TDD workflows. You plan ALL implement
 ### Skills Available
 - `issue-reader` — Parse GitHub issues into structured intake documents
 - `todo-manager` — Track tasks and verify completion gates
+- `lessons-writer` — Update PROJECT_CONTEXT.md with learnings (MANDATORY)
 
 ### Identifier Convention
 

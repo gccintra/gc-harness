@@ -31,6 +31,7 @@ This agent is for situations where the user wants to review and discuss the plan
 ### Skills Available
 - `issue-reader` — Parse GitHub issues into structured intake documents
 - `todo-manager` — Track task structure and verify completeness
+- `lessons-writer` — Update PROJECT_CONTEXT.md with learnings (MANDATORY)
 
 ### Identifier Convention
 

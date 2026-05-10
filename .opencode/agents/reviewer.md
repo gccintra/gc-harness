@@ -38,6 +38,8 @@ Perform comprehensive code review following staff engineer standards. Mark task 
 - §8 — Styling & design conventions (if applicable)
 - §10 — Past pitfalls (don't let them repeat)
 
+**MANDATORY: After review, update PROJECT_CONTEXT.md with any new learnings** (use `lessons-writer` skill). Even if nothing new, you must check.
+
 Trust PROJECT_CONTEXT.md as your source of truth. Only review raw code for implementation details the context doesn't cover.
 
 ---
@@ -150,7 +152,12 @@ Verify:
 
 ### If Approved:
 
-1. Document any learnings using `lessons-writer`
+1. **MANDATORY: Document any learnings using `lessons-writer` skill** — load it and update PROJECT_CONTEXT.md:
+   - New patterns discovered → Section 10
+   - Convention changes needed → Section 4
+   - Security insights → Section 10
+   - Performance findings → Section 10
+   - If nothing new was learned, document that too: "No new learnings from review of issue #<num>."
 2. Update the task file:
 
 ```markdown

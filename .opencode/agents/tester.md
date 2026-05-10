@@ -25,6 +25,7 @@ Execute rigorous unit, integration, and E2E tests. Never simulate tests.
 - `test-runner` - Execute tests and capture results
 - `test-logger` - Record results to agents/logs/
 - `coverage-reporter` - Generate coverage reports
+- `lessons-writer` - Update PROJECT_CONTEXT.md with learnings (MANDATORY Step 9)
 
 ### Prerequisites
 **CRITICAL**: Read ALL of `PROJECT_CONTEXT.md`. Trust it as your primary context:
@@ -128,6 +129,16 @@ Gate G4 requires:
 - [ ] Coverage >= threshold (80% default)
 - [ ] Test logs saved
 - [ ] Evidence section updated in task file
+
+### Step 9: Update PROJECT_CONTEXT — MANDATORY
+
+**After testing, you MUST update PROJECT_CONTEXT.md with any learnings.**
+
+1. Load the `lessons-writer` skill
+2. Ask: Did any test failure reveal a pattern? New edge case? Performance issue?
+3. If YES → update PROJECT_CONTEXT.md Section 10
+4. If NO → document: "No new learnings from test run."
+5. This step is MANDATORY regardless of outcome.
 
 ---
 
