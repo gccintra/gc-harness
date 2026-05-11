@@ -606,20 +606,6 @@ As a <role>, I want <feature> so that <benefit>
 
 ```
 .env.example
-agents/
-├── tasks/
-│   └── <id>.md                 # UNIFIED task file (spec + plan + todos + evidence)
-└── logs/
-    ├── test-run-<id>-<ts>.md   # Test execution results
-    ├── coverage-<id>-<ts>.md   # Coverage report
-    └── security-<id>-<ts>.md   # Security scan report
-.opencode/work/docs/
-├── feature-brief-<name>.md     # Feature-level briefs (scope, rules, edge cases, MoSCoW)
-├── project-brief-<name>.md     # Project-level briefs (vision, stack, architecture)
-├── metrics-<name>.md           # KPI / metrics sheets
-├── journey-<name>.md           # User journey maps
-├── vision-<name>.md            # Product vision documents
-└── competitive-<name>.md       # Competitive landscape docs
 .opencode/
 ├── opencode.json               # MCP configuration
 ├── agents/
@@ -635,28 +621,42 @@ agents/
 │   ├── tester.md
 │   ├── reviewer.md
 │   └── committer.md
-└── skills/
-    ├── project-brief/
-    ├── issue-reader/
-    ├── todo-manager/
-    ├── test-generator/
-    ├── test-runner/
-    ├── test-logger/
-    ├── coverage-reporter/
-    ├── security-checker/
-    ├── senior-engineer-executor/
-    ├── hotfix-mode/
-    ├── figma-implement-design/
-    ├── html-to-figma/
-    ├── frontend-design/
-    ├── db-migrator/
-    ├── quick-review/
-    ├── code-reviewer/
-    ├── lessons-writer/
-    ├── commit-changes/
-    ├── push-changes/
-    ├── create-pr/
-    └── pr-description/
+├── skills/
+│   ├── project-brief/
+│   ├── issue-reader/
+│   ├── todo-manager/
+│   ├── test-generator/
+│   ├── test-runner/
+│   ├── test-logger/
+│   ├── coverage-reporter/
+│   ├── security-checker/
+│   ├── senior-engineer-executor/
+│   ├── hotfix-mode/
+│   ├── figma-implement-design/
+│   ├── html-to-figma/
+│   ├── frontend-design/
+│   ├── db-migrator/
+│   ├── quick-review/
+│   ├── code-reviewer/
+│   ├── lessons-writer/
+│   ├── commit-changes/
+│   ├── push-changes/
+│   ├── create-pr/
+│   └── pr-description/
+└── work/
+    ├── tasks/
+    │   └── <id>.md                 # UNIFIED task file (spec + plan + todos + evidence)
+    ├── logs/
+    │   ├── test-run-<id>-<ts>.md   # Test execution results
+    │   ├── coverage-<id>-<ts>.md   # Coverage report
+    │   └── security-<id>-<ts>.md   # Security scan report
+    └── docs/
+        ├── feature-brief-<name>.md # Feature-level briefs (scope, rules, edge cases)
+        ├── project-brief-<name>.md # Project-level briefs (vision, stack, architecture)
+        ├── metrics-<name>.md       # KPI / metrics sheets
+        ├── journey-<name>.md       # User journey maps
+        ├── vision-<name>.md        # Product vision documents
+        └── competitive-<name>.md   # Competitive landscape docs
 ```
 
 **Identifier convention:**
