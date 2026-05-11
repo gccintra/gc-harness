@@ -37,19 +37,19 @@ echo $BRANCH | grep -oE '[0-9]+' | head -1
 #### Test Logs
 ```bash
 # Find latest test log for this issue
-ls -t agents/logs/test-run-*.md | head -1
+ls -t .opencode/work/logs/test-run-*.md | head -1
 ```
 
 #### Coverage Report
 ```bash
 # Find latest coverage report
-ls -t agents/logs/coverage-*.md | head -1
+ls -t .opencode/work/logs/coverage-*.md | head -1
 ```
 
 #### Security Scan
 ```bash
 # Find latest security scan
-ls -t agents/logs/security-*.md | head -1
+ls -t .opencode/work/logs/security-*.md | head -1
 ```
 
 ### Step 3: Generate PR Description
@@ -76,7 +76,7 @@ Use `pr-description` skill format with additions:
 
 ### Test Results
 <!-- Link to test log -->
-- **Test Log:** [test-run-<num>.md](./agents/logs/test-run-<num>.md)
+- **Test Log:** [test-run-<num>.md](./.opencode/work/logs/test-run-<num>.md)
 - **Coverage:** XX% (threshold: 80%)
 - **All tests passing:** Yes/No
 
@@ -86,7 +86,7 @@ Use `pr-description` skill format with additions:
 - [ ] Auth/permissions verified
 
 <!-- Link to security scan -->
-- **Security Scan:** [security-<num>.md](./agents/logs/security-<num>.md)
+- **Security Scan:** [security-<num>.md](./.opencode/work/logs/security-<num>.md)
 
 ## Screenshots
 <!-- If UI changes, include before/after -->
@@ -127,7 +127,7 @@ Feature
 - [ ] E2E tests (not applicable)
 
 ### Test Results
-- **Test Log:** See agents/logs/test-run-42-20240315.md
+- **Test Log:** See .opencode/work/logs/test-run-42-20240315.md
 - **Coverage:** 87% (threshold: 80%) ✓
 - **All tests passing:** Yes ✓
 
@@ -211,7 +211,7 @@ Apply appropriate labels:
 **Labels:** feature, needs-review
 
 **Attachments:**
-- Test Log: agents/logs/test-run-42-20240315.md
+- Test Log: .opencode/work/logs/test-run-42-20240315.md
 - Coverage: 87%
 - Security: Passed
 

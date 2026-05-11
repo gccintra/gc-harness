@@ -50,7 +50,7 @@ This template provides **6 distinct workflows** covering the full development li
        │
        └─ MANDATORY: offer to generate document → STOP
               ↓
-@issue-crafter docs/feature-brief-<name>.md   →  (reads doc, skips discovery)
+@issue-crafter .opencode/work/docs/feature-brief-<name>.md   →  (reads doc, skips discovery)
        │
        ├─ "I read the Feature Brief. Let me draft the issue based on this."
        ├─ Drafts issue using doc as source of truth
@@ -69,7 +69,7 @@ This template provides **6 distinct workflows** covering the full development li
 ### Flow 2: Requirements → Design (Solo)
 
 ```
-@designer docs/feature-brief-<name>.md   OR   @designer <description>
+@designer .opencode/work/docs/feature-brief-<name>.md   OR   @designer <description>
        │
        ├─ Reads brief + PROJECT_CONTEXT.MD §8 + Figma design system
        ├─ Extracts tokens, variables, components, styles from Figma
@@ -85,7 +85,7 @@ This template provides **6 distinct workflows** covering the full development li
   │
   ├─ Read PROJECT_CONTEXT.md + issue
   ├─ Discuss technical approach with user
-  ├─ Create agents/tasks/<id>.md
+  ├─ Create .opencode/work/tasks/<id>.md
   ├─ Gate G1: Plan validated
   │
   └─ task(executor-tdd) ──────────── RED PHASE
@@ -121,7 +121,7 @@ This template provides **6 distinct workflows** covering the full development li
   │
   ├─ Read PROJECT_CONTEXT.md + issue
   ├─ Discuss technical approach with user
-  ├─ Create agents/tasks/<id>.md
+  ├─ Create .opencode/work/tasks/<id>.md
   ├─ Gate G1: Plan validated
   │
   └─ task(executor) ──────────── IMPLEMENT + TEST
@@ -139,7 +139,7 @@ This template provides **6 distinct workflows** covering the full development li
 ```
 @hotfix #N
   │
-  ├─ Create agents/tasks/<id>.md (minimal hotfix template)
+  ├─ Create .opencode/work/tasks/<id>.md (minimal hotfix template)
   │
   └─ task(executor)
        │
@@ -157,7 +157,7 @@ This template provides **6 distinct workflows** covering the full development li
   │
   ├─ Read PROJECT_CONTEXT.md + issue
   ├─ Discuss technical approach with user
-  ├─ Create agents/tasks/<id>.md
+  ├─ Create .opencode/work/tasks/<id>.md
   ├─ Gate G1: Plan validated
   │
   └─ STOP (user decides next step manually)
@@ -223,7 +223,7 @@ Analyzes codebase, detects tech stack, guides architecture decisions, creates or
 
 # Pipeline runs automatically: executor → tester → reviewer
 # When reviewer marks READY_TO_COMMIT:
-@committer agents/tasks/<id>.md
+@committer .opencode/work/tasks/<id>.md
 ```
 
 ### Option B: Prompt-only (no GitHub issue)
@@ -285,7 +285,7 @@ These agents operate independently and **STOP** after completing their task. The
 
 **Key rules:**
 - Reads `PROJECT_CONTEXT.md` first — never proposes features that violate the architecture
-- **Gathers context from 4 sources before speaking:** PROJECT_CONTEXT.md, `docs/` folder (briefs, journeys), GitHub Issues (related/blocking), and repo structure (existing modules)
+- **Gathers context from 4 sources before speaking:** PROJECT_CONTEXT.md, `.opencode/work/docs/` folder (briefs, journeys), GitHub Issues (related/blocking), and repo structure (existing modules)
 - Parallelizes all context gathering via `task()` subagents
 - Never writes code or creates GitHub issues
 - **MANDATORY at end of every conversation:** offers to generate a document (Feature Brief or custom format)
@@ -326,7 +326,7 @@ These agents operate independently and **STOP** after completing their task. The
 
 **Role:** Senior Product Designer. Consumes Feature Briefs and requirements, reads the Figma design system (tokens, variables, components, styles), builds production-grade HTML with design tokens and accessibility, then pushes directly into Figma.
 
-**Invoke:** `@designer docs/feature-brief-*.md` or `@designer "Create a login page with Google OAuth"`
+**Invoke:** `@designer .opencode/work/docs/feature-brief-*.md` or `@designer "Create a login page with Google OAuth"`
 
 **Flow:** Requirements → Design system analysis → HTML/CSS → Figma insert
 
@@ -346,7 +346,7 @@ These agents operate independently and **STOP** after completing their task. The
 
 **Role:** Creates standardized, layer-split commits, pushes branches, and opens Pull Requests. **Manual trigger only.**
 
-**Invoke:** `@committer agents/tasks/<id>.md`
+**Invoke:** `@committer .opencode/work/tasks/<id>.md`
 
 **GOLDEN RULE — Commit Plan + Approval:**
 1. Analyzes all changed files and classifies them by layer: **Infra/Types**, **Business Logic/Services**, **UI/Interface**, **Tests**
@@ -367,7 +367,7 @@ These agents form chains. Each agent in the pipeline handles its own handoff via
 
 ### plan-maker
 
-**Role:** Standalone planner. Creates a detailed `agents/tasks/<id>.md` and **STOPS**. Does NOT delegate to any executor.
+**Role:** Standalone planner. Creates a detailed `.opencode/work/tasks/<id>.md` and **STOPS**. Does NOT delegate to any executor.
 
 **Invoke:** `@plan-maker #N` or `@plan-maker <prompt>`
 
@@ -379,13 +379,13 @@ These agents form chains. Each agent in the pipeline handles its own handoff via
 
 ### orchestrator-tdd
 
-**Role:** Planner + TDD pipeline initiator. Creates `agents/tasks/<id>.md` and delegates to `executor-tdd`.
+**Role:** Planner + TDD pipeline initiator. Creates `.opencode/work/tasks/<id>.md` and delegates to `executor-tdd`.
 
 **Invoke:** `@orchestrator-tdd #N` or `@orchestrator-tdd <prompt>`
 
 **Key rules:**
 - Reads `PROJECT_CONTEXT.md` first
-- Discusses technical approach with user (skipped for hotfix/docs/chore/test)
+- Discusses technical approach with user (skipped for hotfix/.opencode/work/docs/chore/test)
 - Delegates via `task()` to `executor-tdd` (NOT `executor`)
 - Pipeline continues autonomously: `executor-tdd` → `executor` → `tester` → `reviewer`
 
@@ -395,7 +395,7 @@ These agents form chains. Each agent in the pipeline handles its own handoff via
 
 ### orchestrator-nontdd
 
-**Role:** Planner + standard pipeline initiator. Creates `agents/tasks/<id>.md` and delegates to `executor`.
+**Role:** Planner + standard pipeline initiator. Creates `.opencode/work/tasks/<id>.md` and delegates to `executor`.
 
 **Invoke:** `@orchestrator-nontdd #N` or `@orchestrator-nontdd <prompt>`
 
@@ -415,7 +415,7 @@ These agents form chains. Each agent in the pipeline handles its own handoff via
 **Invoke:** `@hotfix #<issue-number>`
 
 **Key rules:**
-- Creates minimal `agents/tasks/<id>.md` with hotfix template
+- Creates minimal `.opencode/work/tasks/<id>.md` with hotfix template
 - Delegates to `executor` with 15-minute investigation time-box
 - Abbreviated quality gates (regression test required, full coverage deferred)
 - Monitors post-deployment, creates follow-up issues for root cause analysis
@@ -455,7 +455,7 @@ These agents form chains. Each agent in the pipeline handles its own handoff via
 | **B: Standard** | Called by `orchestrator-nontdd` or `hotfix` | No pre-existing tests. Implement code AND generate tests together. |
 
 **Key rules:**
-- Reads `agents/tasks/<id>.md` + `PROJECT_CONTEXT.md`
+- Reads `.opencode/work/tasks/<id>.md` + `PROJECT_CONTEXT.md`
 - Parallelizes implementation across independent modules via `task()` subagents
 - Mandatory `security-checker` on all changed files
 - After completion: delegate to `tester` via `task()`
@@ -577,13 +577,13 @@ As a <role>, I want <feature> so that <benefit>
 
 | Skill | Used By | What It Does |
 |-------|---------|-------------|
-| `feature-brief` | product-manager | Generates structured Feature Brief docs at `docs/feature-brief-*.md` (User Story, MoSCoW, rules, edge cases, metrics) |
-| `project-brief` | product-manager | Generates structured Project Brief docs at `docs/project-brief-*.md` (vision, stack, architecture) |
+| `feature-brief` | product-manager | Generates structured Feature Brief docs at `.opencode/work/docs/feature-brief-*.md` (User Story, MoSCoW, rules, edge cases, metrics) |
+| `project-brief` | product-manager | Generates structured Project Brief docs at `.opencode/work/docs/project-brief-*.md` (vision, stack, architecture) |
 | `issue-reader` | plan-maker, orchestrator-tdd, orchestrator-nontdd | Parses GitHub issues into structured intake |
 | `todo-manager` | plan-maker, orchestrator-tdd, orchestrator-nontdd | Task tracking via unified task file |
 | `test-generator` | executor-tdd, executor | Generates tests (supports TDD-first and standard modes) |
 | `test-runner` | tester | Executes test suite, enforces 100% pass |
-| `test-logger` | tester | Saves results to `agents/logs/` |
+| `test-logger` | tester | Saves results to `.opencode/work/logs/` |
 | `coverage-reporter` | tester | Generates coverage reports |
 | `security-checker` | executor, reviewer | OWASP security checks |
 | `senior-engineer-executor` | executor | Implementation workflow (dual mode: TDD green phase + standard) |
@@ -613,7 +613,7 @@ agents/
     ├── test-run-<id>-<ts>.md   # Test execution results
     ├── coverage-<id>-<ts>.md   # Coverage report
     └── security-<id>-<ts>.md   # Security scan report
-docs/
+.opencode/work/docs/
 ├── feature-brief-<name>.md     # Feature-level briefs (scope, rules, edge cases, MoSCoW)
 ├── project-brief-<name>.md     # Project-level briefs (vision, stack, architecture)
 ├── metrics-<name>.md           # KPI / metrics sheets
@@ -663,8 +663,8 @@ docs/
 
 | Trigger | `<id>` | Example |
 |---------|--------|---------|
-| `@orchestrator-* #42` | `issue-42` | `agents/tasks/issue-42.md` |
-| `@orchestrator-* <prompt>` | `task-<slug>` | `agents/tasks/task-add-jwt-auth.md` |
+| `@orchestrator-* #42` | `issue-42` | `.opencode/work/tasks/issue-42.md` |
+| `@orchestrator-* <prompt>` | `task-<slug>` | `.opencode/work/tasks/task-add-jwt-auth.md` |
 
 ---
 
@@ -786,7 +786,7 @@ All 13 agents have explicit `PARALLELIZATION MANDATE` instructions. If an agent 
 
 ### Tests failing at Gate G4
 
-Check `agents/logs/test-run-<id>-*.md` for details. The tester returns to executor automatically. **100% of tests must pass** — even a single failure blocks the gate.
+Check `.opencode/work/logs/test-run-<id>-*.md` for details. The tester returns to executor automatically. **100% of tests must pass** — even a single failure blocks the gate.
 
 ### Coverage below threshold
 
@@ -794,12 +794,12 @@ Threshold is 80% for new code. The tester returns to executor with the coverage 
 
 ### Task not reaching READY_TO_COMMIT
 
-Check `agents/tasks/<id>.md` — verify all checkboxes are `[x]` and Evidence section is filled. The task must pass through `executor → tester → reviewer` in order.
+Check `.opencode/work/tasks/<id>.md` — verify all checkboxes are `[x]` and Evidence section is filled. The task must pass through `executor → tester → reviewer` in order.
 
 ### PR creation fails
 
 - Run `gh auth status` to verify GitHub CLI authentication
-- Confirm task status is `READY_TO_COMMIT` in `agents/tasks/<id>.md`
+- Confirm task status is `READY_TO_COMMIT` in `.opencode/work/tasks/<id>.md`
 - The committer will present a Commit Plan and ask for approval — you must confirm in chat
 
 ### Agent confusion about TDD vs Standard mode

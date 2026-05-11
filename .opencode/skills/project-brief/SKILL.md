@@ -65,7 +65,7 @@ Com isso ja consigo montar o documento completo.
 
 ### 3. Gerar o arquivo .md
 
-Com as informacoes suficientes, gere o arquivo em `docs/project-brief-<nome-do-projeto>.md`.
+Com as informacoes suficientes, gere o arquivo em `.opencode/work/docs/project-brief-<nome-do-projeto>.md`.
 
 Use o template abaixo. Para campos sem informacao: use `> _A definir_` como placeholder.
 
@@ -183,5 +183,5 @@ Use o template abaixo. Para campos sem informacao: use `> _A definir_` como plac
 - **Nao inclua secoes completamente vazias** — se nao ha nenhuma informacao para integracoes externas, por exemplo, coloque `> _Nenhuma identificada ate o momento._`
 - **Seja fiel ao que o usuario disse** — nao "melhore" a ideia dele sem ser solicitado.
 - **Tom do documento:** profissional mas direto. Sem jargao desnecessario.
-- Apos gerar o arquivo, informe o usuario com o path completo: `docs/project-brief-<nome>.md`
+- Apos gerar o arquivo, informe o usuario com o path completo: `.opencode/work/docs/project-brief-<nome>.md`
 - Termine com uma mensagem curta perguntando se quer ajustar algo.

@@ -1,14 +1,14 @@
 ---
 name: todo-manager
-description: Manages task tracking in the unified task file (agents/tasks/<id>.md). Verifies completion gates and blocks progression when tasks are incomplete.
+description: Manages task tracking in the unified task file (.opencode/work/tasks/<id>.md). Verifies completion gates and blocks progression when tasks are incomplete.
 ---
 ## Todo Manager Skill
 
-Central task tracking system for the development workflow. All tracking is done in the **unified task file** — one file per task at `agents/tasks/<id>.md`.
+Central task tracking system for the development workflow. All tracking is done in the **unified task file** — one file per task at `.opencode/work/tasks/<id>.md`.
 
 ### File Convention
 
-Each task has ONE file: `agents/tasks/<id>.md`
+Each task has ONE file: `.opencode/work/tasks/<id>.md`
 
 Where `<id>` is:
 - `issue-<num>` — for GitHub issue-triggered tasks (e.g., `issue-42`)
@@ -50,7 +50,7 @@ The orchestrator creates this structure. Other agents update it.
 ### Operations
 
 #### Initialize Task File
-The orchestrator creates `agents/tasks/<id>.md` with the full structure. No separate init needed.
+The orchestrator creates `.opencode/work/tasks/<id>.md` with the full structure. No separate init needed.
 
 #### Complete a Task
 Mark a checkbox in the `### Tasks` section:
@@ -75,7 +75,7 @@ Change the `## Status:` line:
 ### Gates
 
 #### G1: Orchestrator Gate
-- Task file exists: `agents/tasks/<id>.md`
+- Task file exists: `.opencode/work/tasks/<id>.md`
 - Problem Statement is filled
 - Acceptance Criteria are defined
 - Tasks are listed in `### Tasks`
@@ -89,7 +89,7 @@ Change the `## Status:` line:
 #### G4: Tester Gate
 - All tests pass
 - Coverage >= threshold (default 80%)
-- Test logs saved to `agents/logs/`
+- Test logs saved to `.opencode/work/logs/`
 - Evidence section updated in task file
 
 #### G5: Reviewer Gate
@@ -131,17 +131,17 @@ Output format for blocked gate:
 
 **Orchestrator creating task file:**
 ```
-Create agents/tasks/issue-42.md with the full unified structure
+Create .opencode/work/tasks/issue-42.md with the full unified structure
 ```
 
 **Executor completing a task:**
 ```
-Mark "Implement login endpoint" as done in agents/tasks/issue-42.md
+Mark "Implement login endpoint" as done in .opencode/work/tasks/issue-42.md
 ```
 
 **Tester checking gate:**
 ```
-Verify gate G4 for agents/tasks/issue-42.md
+Verify gate G4 for .opencode/work/tasks/issue-42.md
 ```
 
 ### Output

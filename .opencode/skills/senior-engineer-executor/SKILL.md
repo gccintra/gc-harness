@@ -68,11 +68,11 @@ REVIEW CHANGES REQUESTED:
 
 ### Step 1: Read the Task File
 - Read the unified task file created by the orchestrator:
-  - `agents/tasks/<id>.md` — contains problem, approach, implementation plan, tasks, testing strategy
+  - `.opencode/work/tasks/<id>.md` — contains problem, approach, implementation plan, tasks, testing strategy
 - Read `PROJECT_CONTEXT.md` for architecture rules, coding standards, dev commands
 
 ### Step 2: Update Task Status
-Update the `## Status:` line in `agents/tasks/<id>.md`:
+Update the `## Status:` line in `.opencode/work/tasks/<id>.md`:
 ```markdown
 ## Status: IN_PROGRESS
 ```
@@ -91,7 +91,7 @@ Use subagents liberally to keep main context clean:
 - If YES → Mode A (TDD Green Phase): implement code to pass existing tests
 - If NO → Mode B (Standard): implement code and generate tests
 
-Follow the `### Implementation Order` from `agents/tasks/<id>.md`. For each task in `### Tasks`:
+Follow the `### Implementation Order` from `.opencode/work/tasks/<id>.md`. For each task in `### Tasks`:
 
 1. Implement the change (Mode A: to pass existing tests. Mode B: full implementation)
 2. **If Mode A (TDD):** Run existing tests to verify they now pass. Do NOT modify tests.
@@ -138,12 +138,12 @@ Before marking a task complete:
 
 ### Step 8: Update Task File — Mark All Tasks Done
 After completing all tasks:
-- All `### Tasks` checkboxes marked `[x]` in `agents/tasks/<id>.md`
+- All `### Tasks` checkboxes marked `[x]` in `.opencode/work/tasks/<id>.md`
 - Status remains `IN_PROGRESS` (tester will change it)
 - `*Last updated*` footer updated
 
 ### Step 9: Verify Gate G3
-Gate G3 requires (check `agents/tasks/<id>.md`):
+Gate G3 requires (check `.opencode/work/tasks/<id>.md`):
 - [ ] All `### Tasks` checkboxes are `[x]`
 - [ ] Tests created for new code
 - [ ] No TODO comments without issue reference
@@ -162,7 +162,7 @@ task(
   category="unspecified-low",
   load_skills=["test-runner", "test-logger", "coverage-reporter"],
   description="Test <id>",
-  prompt="Read agents/tasks/<id>.md and PROJECT_CONTEXT.md. Run the full test suite. Generate coverage report. Log results to agents/logs/. Update the Evidence section in agents/tasks/<id>.md with log paths. If tests FAIL, update Status to IN_PROGRESS and delegate back to executor."
+  prompt="Read .opencode/work/tasks/<id>.md and PROJECT_CONTEXT.md. Run the full test suite. Generate coverage report. Log results to .opencode/work/logs/. Update the Evidence section in .opencode/work/tasks/<id>.md with log paths. If tests FAIL, update Status to IN_PROGRESS and delegate back to executor."
 )
 ```
 
@@ -279,7 +279,7 @@ After completing implementation:
 ### Gate G3: PASSED
 
 ### Task File Updated
-agents/tasks/<id>.md — all checkboxes marked, status IN_PROGRESS
+.opencode/work/tasks/<id>.md — all checkboxes marked, status IN_PROGRESS
 
 Next: **MANDATORY handoff to tester** (via task() with load_skills=["test-runner", "test-logger", "coverage-reporter"])
 ```

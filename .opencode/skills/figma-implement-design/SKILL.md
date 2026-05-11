@@ -214,7 +214,7 @@ Antes de marcar a task como concluída:
 
 Quando esta skill é usada pelo `executor`, após a implementação:
 
-1. Marcar os checkboxes relevantes em `agents/tasks/<id>.md` como `[x]`
+1. Marcar os checkboxes relevantes em `.opencode/work/tasks/<id>.md` como `[x]`
 2. Listar os arquivos criados/modificados na seção `### Files Modified`
 3. Prosseguir com `test-generator` para criar testes dos componentes implementados
 4. Prosseguir com `security-checker` (XSS em inputs, sanitização de dados dinâmicos)

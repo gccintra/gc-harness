@@ -50,7 +50,7 @@ Analyze if the issue requires:
 - **Infrastructure**: DevOps, CI/CD, deployment
 
 ### Step 5: Create Intake Document
-Save to `agents/tasks/issue-<num>-intake.md` (the orchestrator will later expand this into the full unified task file):
+Save to `.opencode/work/tasks/issue-<num>-intake.md` (the orchestrator will later expand this into the full unified task file):
 
 ```markdown
 # Issue #<num> Intake
@@ -85,7 +85,7 @@ Save to `agents/tasks/issue-<num>-intake.md` (the orchestrator will later expand
 
 ---
 *Parsed by issue-reader skill*
-*Ready for: @orchestrator — who will expand this into agents/tasks/issue-<num>.md*
+*Ready for: @orchestrator — who will expand this into .opencode/work/tasks/issue-<num>.md*
 ```
 
 ### Step 6: Handoff
@@ -104,5 +104,5 @@ Return the path to the intake document and a brief summary:
 ```
 Parsed issue #<num>: "<title>"
 Type: <type> | Scope: <scope>
-Intake saved to: agents/tasks/issue-<num>-intake.md
+Intake saved to: .opencode/work/tasks/issue-<num>-intake.md
 ```

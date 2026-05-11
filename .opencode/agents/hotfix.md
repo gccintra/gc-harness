@@ -43,7 +43,7 @@ HOTFIX TRIGGERED
      │
      ▼
 HOTFIX AGENT (this agent)
-  - Creates agents/tasks/<id>.md (minimal)
+  - Creates .opencode/work/tasks/<id>.md (minimal)
   - Delegates to executor
      │
      ▼
@@ -77,7 +77,7 @@ USER triggers @committer
 
 ### Step 1: Create Unified Task File
 
-Create `agents/tasks/<id>.md` with minimal hotfix structure:
+Create `.opencode/work/tasks/<id>.md` with minimal hotfix structure:
 
 ```markdown
 # Task: <id> — HOTFIX: <title>
@@ -147,7 +147,7 @@ task(
   category="deep",
   load_skills=["senior-engineer-executor", "test-generator", "security-checker"],
   description="Hotfix <id>",
-  prompt="HOTFIX MODE. FIRST ACTION: load skill 'senior-engineer-executor' — this is MANDATORY before reading any file. Then read agents/tasks/<id>.md and PROJECT_CONTEXT.md. Time-box investigation to 15 minutes. Implement MINIMAL fix — no refactoring, no feature additions, no over-engineering. Create a regression test that reproduces the bug and verifies the fix. Run security-checker on changed files. Update task checkboxes as you complete each one. After all tasks complete, hand off to tester via task() with load_skills=['test-runner','test-logger','coverage-reporter'] — this is MANDATORY, never skip the tester.",
+  prompt="HOTFIX MODE. FIRST ACTION: load skill 'senior-engineer-executor' — this is MANDATORY before reading any file. Then read .opencode/work/tasks/<id>.md and PROJECT_CONTEXT.md. Time-box investigation to 15 minutes. Implement MINIMAL fix — no refactoring, no feature additions, no over-engineering. Create a regression test that reproduces the bug and verifies the fix. Run security-checker on changed files. Update task checkboxes as you complete each one. After all tasks complete, hand off to tester via task() with load_skills=['test-runner','test-logger','coverage-reporter'] — this is MANDATORY, never skip the tester.",
   run_in_background=false
 )
 ```
@@ -165,7 +165,7 @@ Inform the user:
 **Fix:** <one-line description>
 **Status:** READY_TO_COMMIT
 
-Run `@committer agents/tasks/<id>.md` to create the commit and PR.
+Run `@committer .opencode/work/tasks/<id>.md` to create the commit and PR.
 ```
 
 **DO NOT auto-commit. STOP and wait for user to invoke @committer.**

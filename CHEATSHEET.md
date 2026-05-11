@@ -11,14 +11,14 @@ I have an...                               →  Use this agent
 ═══════════════════════════════════════════════════════════════════
 🆕 New project (no code yet)               →  @project-setup
 💡 Vague idea, need to refine scope        →  @product-manager
-🎨 Need a screen designed in Figma          →  @designer docs/feature-brief-*.md
+🎨 Need a screen designed in Figma          →  @designer .opencode/work/docs/feature-brief-*.md
 📋 Ready to create a GitHub issue          →  @issue-crafter
 📋 Multiple items → separate issues        →  @issue-crafter (detects lists)
 🛠️ Clear task, ready to code (TDD)         →  @orchestrator-tdd
 🛠️ Clear task, ready to code (no TDD)      →  @orchestrator-nontdd
 📝 Just want a plan, don't execute          →  @plan-maker
 🚨 Production emergency                     →  @hotfix #N
-✅ Task approved → commit & PR              →  @committer agents/tasks/<id>.md
+✅ Task approved → commit & PR              →  @committer .opencode/work/tasks/<id>.md
 🔄 PROJECT_CONTEXT.md missing info          →  @project-setup (re-invocable)
 ```
 
@@ -36,13 +36,13 @@ I have an...                               →  Use this agent
 @product-manager                  # Refine scope, rules, edge cases, metrics
 @issue-crafter                    # Single requirement → one issue
 @issue-crafter                    # "1. Login, 2. Dashboard, 3. CSV" → detects list
-@issue-crafter docs/feature-brief-notifications.md   # Create issue FROM a brief
+@issue-crafter .opencode/work/docs/feature-brief-notifications.md   # Create issue FROM a brief
 
 ### Design
 
 ```bash
-@designer docs/feature-brief-notifications.md          # Brief → design system → HTML → Figma
-@designer docs/feature-brief-notifications.md "add a dark mode toggle"  # Brief + extra context
+@designer .opencode/work/docs/feature-brief-notifications.md          # Brief → design system → HTML → Figma
+@designer .opencode/work/docs/feature-brief-notifications.md "add a dark mode toggle"  # Brief + extra context
 @designer "Create a login page with email and Google OAuth"  # Text description → design
 ```
 ```
@@ -69,7 +69,7 @@ I have an...                               →  Use this agent
 ### Commit & PR
 
 ```bash
-@committer agents/tasks/issue-42.md       # Analyzes changes → drafts Commit Plan (multiple commits by layer)
+@committer .opencode/work/tasks/issue-42.md       # Analyzes changes → drafts Commit Plan (multiple commits by layer)
                                            # Presents plan → WAITS for approval → creates commits + push + PR
 ```
 
@@ -96,7 +96,7 @@ I have an...                               →  Use this agent
 | `product-manager` | Refines WHAT to build (scope, rules, metrics) | Write code, create issues |
 | `designer` | Brief → design system → HTML → Figma | Write app code (React/Vue/etc) |
 | `issue-crafter` | Creates GitHub issues from requirements | Write code, implement |
-| `plan-maker` | Creates `agents/tasks/<id>.md` plan | Execute, delegate to executor |
+| `plan-maker` | Creates `.opencode/work/tasks/<id>.md` plan | Execute, delegate to executor |
 | `orchestrator-tdd` | Plan + delegate to executor-tdd | Write code, implement |
 | `orchestrator-nontdd` | Plan + delegate to executor | Write code, implement |
 | `executor-tdd` | Write ONLY failing tests (red phase) | Write implementation code |
@@ -126,12 +126,12 @@ After G5 → `READY_TO_COMMIT` → you call `@committer`.
 | Document | Created By | When |
 |----------|-----------|------|
 | `PROJECT_CONTEXT.md` | `@project-setup` | Project start (re-invocable) |
-| `docs/feature-brief-*.md` | `@product-manager` | End of every feature discussion |
-| `docs/project-brief-*.md` | `@product-manager` | New project/product idea |
-| `agents/tasks/<id>.md` | orchestrator/plan-maker | Every development task |
-| `agents/logs/test-run-*.md` | `@tester` | After test execution |
-| `agents/logs/coverage-*.md` | `@tester` | After coverage analysis |
-| `agents/logs/security-*.md` | executor/reviewer | After security scan |
+| `.opencode/work/docs/feature-brief-*.md` | `@product-manager` | End of every feature discussion |
+| `.opencode/work/docs/project-brief-*.md` | `@product-manager` | New project/product idea |
+| `.opencode/work/tasks/<id>.md` | orchestrator/plan-maker | Every development task |
+| `.opencode/work/logs/test-run-*.md` | `@tester` | After test execution |
+| `.opencode/work/logs/coverage-*.md` | `@tester` | After coverage analysis |
+| `.opencode/work/logs/security-*.md` | executor/reviewer | After security scan |
 | Figma HTML files | `@designer` | During design creation (temp, then pushed to Figma) |
 
 ---
@@ -158,14 +158,14 @@ After G5 → `READY_TO_COMMIT` → you call `@committer`.
 → discuss scope, users, flows, edge cases, metrics
 → agent asks: "Want me to generate a document?"
 → pick Feature Brief (for features) or Project Brief (for new projects)
-→ agent outputs: "@issue-crafter docs/feature-brief-<name>.md"
+→ agent outputs: "@issue-crafter .opencode/work/docs/feature-brief-<name>.md"
 → copy-paste that command
 
 # OPTIONAL: See the design before coding
-@designer docs/feature-brief-notifications.md
+@designer .opencode/work/docs/feature-brief-notifications.md
 → reads brief + design system → HTML → Figma → outputs Figma URL
 
-@issue-crafter docs/feature-brief-<name>.md
+@issue-crafter .opencode/work/docs/feature-brief-<name>.md
 → agent reads the brief, drafts the issue, asks for approval
 → creates GitHub issue
 → agent outputs: "@orchestrator-tdd #N"
@@ -173,7 +173,7 @@ After G5 → `READY_TO_COMMIT` → you call `@committer`.
 @orchestrator-tdd #N
 → pipeline runs automatically: plan → tests → code → tester → reviewer
 → when reviewer says READY_TO_COMMIT:
-@committer agents/tasks/issue-N.md
+@committer .opencode/work/tasks/issue-N.md
 → committer classifies files by layer (Infra → Logic → UI → Tests)
 → presents Commit Plan (multiple commits) → asks approval → creates commits + PR
 ```
@@ -181,22 +181,22 @@ After G5 → `READY_TO_COMMIT` → you call `@committer`.
 ```
 @orchestrator-nontdd "add export CSV to the reports page"
 → plan → code + tests → tester → reviewer → READY_TO_COMMIT
-@committer agents/tasks/task-add-export-csv.md
+@committer .opencode/work/tasks/task-add-export-csv.md
 → classifies files → drafts Commit Plan by layer → asks approval → commits + PR
 ```
 
 ### "Just make a plan, I'll review before coding"
 ```
 @plan-maker "migrate auth from JWT to OAuth2"
-→ creates agents/tasks/<id>.md
+→ creates .opencode/work/tasks/<id>.md
 → STOP — read the plan, then decide:
-   @orchestrator-tdd agents/tasks/<id>.md
-   @orchestrator-nontdd agents/tasks/<id>.md
+   @orchestrator-tdd .opencode/work/tasks/<id>.md
+   @orchestrator-nontdd .opencode/work/tasks/<id>.md
 ```
 
 ### "I have a brief, I want to see the design"
 ```
-@designer docs/feature-brief-notifications.md
+@designer .opencode/work/docs/feature-brief-notifications.md
 → reads brief + PROJECT_CONTEXT.MD §8 + Figma design system
 → extracts tokens, colors, spacing, components
 → builds HTML with design tokens, auto-layout, WCAG AA
@@ -208,7 +208,7 @@ After G5 → `READY_TO_COMMIT` → you call `@committer`.
 @hotfix #42
 → 15-min investigation → minimal fix + regression test → tester → reviewer
 → READY_TO_COMMIT
-@committer agents/tasks/issue-42.md
+@committer .opencode/work/tasks/issue-42.md
 ```
 
 ### "I need to update PROJECT_CONTEXT.md"

@@ -57,7 +57,7 @@ git checkout -b feat/issue-42-add-auth-refresh
 | Bug Fix | `fix/issue-<num>-<desc>` | `fix/issue-123-login-error` |
 | Refactor | `refactor/issue-<num>-<desc>` | `refactor/issue-45-cleanup` |
 | Hotfix | `hotfix/issue-<num>-<desc>` | `hotfix/issue-99-critical-fix` |
-| Docs | `docs/issue-<num>-<desc>` | `docs/issue-50-api-docs` |
+| Docs | `.opencode/work/docs/issue-<num>-<desc>` | `.opencode/work/docs/issue-50-api-docs` |
 
 ### Step 3: Sync with Remote (if branch exists)
 

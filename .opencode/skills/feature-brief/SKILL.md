@@ -63,7 +63,7 @@ Com isso finalizo o documento.
 
 ### 3. Gerar o arquivo .md
 
-Com as informacoes suficientes, gere o arquivo em `docs/feature-brief-<slug>.md`.
+Com as informacoes suficientes, gere o arquivo em `.opencode/work/docs/feature-brief-<slug>.md`.
 
 Use o template abaixo. Para campos sem informacao: use `> _A definir_` como placeholder.
 
@@ -176,5 +176,5 @@ Use o template abaixo. Para campos sem informacao: use `> _A definir_` como plac
 - **Seja fiel ao que foi discutido** — nao "melhore" o escopo sem ser solicitado.
 - **Adapte secoes ao contexto** — se a conversa foi puramente sobre metricas, expanda a secao 7 e reduza as outras.
 - **Tom do documento:** profissional mas direto. Sem jargao desnecessario.
-- Apos gerar o arquivo, informe o usuario com o path completo: `docs/feature-brief-<slug>.md`
+- Apos gerar o arquivo, informe o usuario com o path completo: `.opencode/work/docs/feature-brief-<slug>.md`
 - Termine com uma mensagem curta perguntando se quer ajustar algo.

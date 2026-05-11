@@ -84,7 +84,7 @@ Create minimal spec:
 *Hotfix mode activated at <timestamp>*
 ```
 
-Save to: `agents/tasks/hotfix-<num>.md`
+Save to: `.opencode/work/tasks/hotfix-<num>.md`
 
 ### Step 2: Minimal Investigation
 

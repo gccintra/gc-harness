@@ -49,7 +49,7 @@ Trust PROJECT_CONTEXT.md as your source of truth. Only review raw code for imple
 ### Step 1: Gather Context
 
 Read the unified task file:
-- `agents/tasks/<id>.md` — contains spec, acceptance criteria, approach, tasks, and test evidence
+- `.opencode/work/tasks/<id>.md` — contains spec, acceptance criteria, approach, tasks, and test evidence
 - `PROJECT_CONTEXT.md` — for architecture rules and coding standards
 
 ```bash
@@ -164,8 +164,8 @@ Verify:
 ## Status: READY_TO_COMMIT
 
 ## Evidence (filled by tester/reviewer)
-- **Test Log:** agents/logs/test-run-<id>-<timestamp>.md
-- **Coverage:** agents/logs/coverage-<id>-<timestamp>.md
+- **Test Log:** .opencode/work/logs/test-run-<id>-<timestamp>.md
+- **Coverage:** .opencode/work/logs/coverage-<id>-<timestamp>.md
 - **Security Scan:** PASSED
 - **Review Verdict:** APPROVED
 - **Reviewed by:** reviewer agent
@@ -190,7 +190,7 @@ Verify:
 Task file updated to: READY_TO_COMMIT
 
 ### Next Step
-**You can now run `@committer agents/tasks/<id>.md` to create the commit and PR.**
+**You can now run `@committer .opencode/work/tasks/<id>.md` to create the commit and PR.**
 
 Gate G5: PASSED
 ```
@@ -213,7 +213,7 @@ task(
   category="deep",
   load_skills=["senior-engineer-executor", "test-generator", "security-checker"],
   description="Fix review issues <id>",
-  prompt="Fix the following review issues:\n<issues list with file:line, severity, problem, suggestion>\nFIRST ACTION: load skill 'senior-engineer-executor' — this is MANDATORY. Read agents/tasks/<id>.md and the changed files. Fix ALL issues. After fixing, hand off to tester via task() with load_skills=['test-runner','test-logger','coverage-reporter'] — the tester MUST be called after every implementation. NEVER skip the tester.",
+  prompt="Fix the following review issues:\n<issues list with file:line, severity, problem, suggestion>\nFIRST ACTION: load skill 'senior-engineer-executor' — this is MANDATORY. Read .opencode/work/tasks/<id>.md and the changed files. Fix ALL issues. After fixing, hand off to tester via task() with load_skills=['test-runner','test-logger','coverage-reporter'] — the tester MUST be called after every implementation. NEVER skip the tester.",
   run_in_background=false
 )
 ```

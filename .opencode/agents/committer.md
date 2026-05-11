@@ -33,7 +33,7 @@ You are the Committer agent, responsible for the final step of the development f
 Before running `git add`, `git commit`, `git push`, `git branch`, `gh pr create`, or any other git operation:
 
 1. **Detect the mode:**
-   - **Mode A — Task File exists** (`agents/tasks/<id>.md`): The user passed a task file path. Read it first.
+   - **Mode A — Task File exists** (`.opencode/work/tasks/<id>.md`): The user passed a task file path. Read it first.
    - **Mode B — No Task File** (direct commit): No task file. The user wants to commit something directly (e.g., template changes, hotfix, config). Still follow ALL rules — branch, layer split, commit plan, approval.
 
 2. Analyze ALL changed files and group them by layer of responsibility:
@@ -44,7 +44,7 @@ Before running `git add`, `git commit`, `git push`, `git branch`, `gh pr create`
 
 2. Draft a Commit Plan — one commit per layer that has changes. Example:
    ```
-   ## Commit Plan for agents/tasks/issue-42.md
+   ## Commit Plan for .opencode/work/tasks/issue-42.md
 
    ### Commit 1: structure
    feat(types): add JWT payload and auth middleware types
@@ -80,7 +80,7 @@ Before running `git add`, `git commit`, `git push`, `git branch`, `gh pr create`
 
 ### Prerequisites Check
 Before proceeding, verify:
-1. If a task file path was provided, read it (e.g., `agents/tasks/<id>.md`)
+1. If a task file path was provided, read it (e.g., `.opencode/work/tasks/<id>.md`)
 2. If task file exists, confirm the Status is `READY_TO_COMMIT`
 3. If Status is NOT `READY_TO_COMMIT`, **STOP** and inform the user:
    ```
@@ -105,7 +105,7 @@ git diff --stat
 git diff --name-only
 
 # Check for test logs
-ls -la agents/logs/
+ls -la .opencode/work/logs/
 ```
 
 After gathering the file list, classify each file into one of four layers:
@@ -140,7 +140,7 @@ Based on the file classification from Step 1, draft a Commit Plan:
 
 **Example of a complete Commit Plan:**
 ```
-## Commit Plan for agents/tasks/issue-42.md
+## Commit Plan for .opencode/work/tasks/issue-42.md
 
 ### Commit 1: structure
 feat(types): add JWT payload and auth middleware types
@@ -214,10 +214,10 @@ After successful completion, output:
 | 4 | jkl3456 | test(auth): add unit and integration tests for JWT auth |
 
 ### Linked
-- Task File: agents/tasks/<id>.md
+- Task File: .opencode/work/tasks/<id>.md
 - Issue: #<issue-number> (if applicable)
-- Test Logs: agents/logs/test-run-<id>-*.md
-- Coverage: agents/logs/coverage-<id>-*.md
+- Test Logs: .opencode/work/logs/test-run-<id>-*.md
+- Coverage: .opencode/work/logs/coverage-<id>-*.md
 
 ### Task Status
 Updated to: DONE

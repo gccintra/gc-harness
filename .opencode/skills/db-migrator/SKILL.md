@@ -153,7 +153,7 @@ ALTER TABLE users DROP COLUMN name;
 
 ### Step 5: Migration Plan Document
 
-Create in `agents/tasks/migration-plan-<issue-num>.md`:
+Create in `.opencode/work/tasks/migration-plan-<issue-num>.md`:
 
 ```markdown
 # Migration Plan: Issue #<num>
@@ -254,12 +254,12 @@ migrate -path db/migrations -database $DATABASE_URL up
 - Rollback tested
 
 ### Plan Document
-- agents/tasks/migration-plan-42.md
+- .opencode/work/tasks/migration-plan-42.md
 
 Ready for: @executor to implement application changes
 ```
 
 ### Integration
 - Used by: `executor` (when tasks involve database schema changes)
-- Reports to: `todo-manager` — migration plan document linked in `agents/tasks/<id>.md`
+- Reports to: `todo-manager` — migration plan document linked in `.opencode/work/tasks/<id>.md`
 - Uses: docker exec psql (commands from PROJECT_CONTEXT.md → Dev Commands → DB Access)

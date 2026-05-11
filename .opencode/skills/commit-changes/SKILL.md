@@ -7,7 +7,7 @@ description: Creates standardized conventional commits following project convent
 Create well-structured, conventional commits that follow project standards and provide clear history.
 
 ### When to Use
-- After code review approval (spec status = READY_TO_COMMIT)
+- After code review approval (task status = READY_TO_COMMIT)
 - When committer agent is invoked
 - Never automatically - always requires explicit trigger
 
@@ -19,8 +19,8 @@ Create well-structured, conventional commits that follow project standards and p
 
 ### Step 1: Verify Ready State
 ```bash
-# Check spec status
-grep -l "READY_TO_COMMIT" agents/specs/issue-*-spec.md
+# Check task status
+grep -l "^## Status: READY_TO_COMMIT" .opencode/work/tasks/*.md
 
 # Verify clean working directory (only expected changes)
 git status

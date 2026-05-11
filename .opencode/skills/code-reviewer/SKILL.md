@@ -34,9 +34,9 @@ git log --oneline main...HEAD
 ```
 
 Read the task and evidence files:
-- `agents/tasks/<id>.md` — unified task file with problem, approach, and evidence
-- Test logs from `agents/logs/`
-- Coverage report from `agents/logs/`
+- `.opencode/work/tasks/<id>.md` — unified task file with problem, approach, and evidence
+- Test logs from `.opencode/work/logs/`
+- Coverage report from `.opencode/work/logs/`
 
 ### Step 2: Apply quick-review Skill
 Use `quick-review` for structured code review:
@@ -68,8 +68,8 @@ Verify:
 ### Step 4: Verify Test Evidence
 Check test logs exist and show passing:
 ```bash
-ls -la agents/logs/test-run-<num>-*.md
-ls -la agents/logs/coverage-<num>-*.md
+ls -la .opencode/work/logs/test-run-<num>-*.md
+ls -la .opencode/work/logs/coverage-<num>-*.md
 ```
 
 Verify:
@@ -191,7 +191,7 @@ Gate G5 requires:
 - [ ] Code review completed
 - [ ] Security scan passed
 - [ ] No HIGH severity issues
-- [ ] All tasks in `agents/tasks/<id>.md` complete
+- [ ] All tasks in `.opencode/work/tasks/<id>.md` complete
 
 ---
 
@@ -200,13 +200,13 @@ Gate G5 requires:
 When approved, update the unified task file:
 
 ```markdown
-<!-- In agents/tasks/<id>.md -->
+<!-- In .opencode/work/tasks/<id>.md -->
 ## Status: READY_TO_COMMIT
 
 ## Evidence (filled by tester/reviewer)
-- **Test Log:** agents/logs/test-run-<id>-<timestamp>.md
-- **Coverage:** agents/logs/coverage-<id>-<timestamp>.md
-- **Security Scan:** agents/logs/security-<id>-<timestamp>.md
+- **Test Log:** .opencode/work/logs/test-run-<id>-<timestamp>.md
+- **Coverage:** .opencode/work/logs/coverage-<id>-<timestamp>.md
+- **Security Scan:** .opencode/work/logs/security-<id>-<timestamp>.md
 - **Review Verdict:** APPROVED
 - **Reviewed by:** @reviewer
 - **Date:** <timestamp>
@@ -249,7 +249,7 @@ lessons-writer --category "<category>" --lesson "<description>"
 ### Gate G5: PASSED
 
 ### Task File Status
-Updated `agents/tasks/<id>.md` to: READY_TO_COMMIT
+Updated `.opencode/work/tasks/<id>.md` to: READY_TO_COMMIT
 
 ### Next Steps
 **Pronto para commit.**

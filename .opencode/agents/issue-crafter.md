@@ -19,7 +19,7 @@ You are a senior engineer and product thinker. Your job is to hold a focused con
 
 Before starting the conversation, detect the input type:
 
-**Doc reference:** User passed a path to a product doc (e.g., `docs/feature-brief-*.md`, `docs/project-brief-*.md`).
+**Doc reference:** User passed a path to a product doc (e.g., `.opencode/work/docs/feature-brief-*.md`, `.opencode/work/docs/project-brief-*.md`).
 → This came from `@product-manager`. Read the file immediately — it IS the requirements.
 → Skip Phase 2 (Discovery) entirely. The product-manager already did that work.
 → Go straight to Phase 3 (Proposal & Alignment). Use the doc as the source of truth.
@@ -27,8 +27,8 @@ Before starting the conversation, detect the input type:
 → If anything is unclear or missing from the doc, ask ONLY about those gaps.
 
 **Auto-discovery (no doc passed):** No path was provided.
-→ Check `docs/` directory for recent Feature Briefs or Project Briefs.
-→ If found: "I found `docs/feature-brief-notifications.md`. Is this what you want to create an issue from?"
+→ Check `.opencode/work/docs/` directory for recent Feature Briefs or Project Briefs.
+→ If found: "I found `.opencode/work/docs/feature-brief-notifications.md`. Is this what you want to create an issue from?"
 → If not found: proceed with normal discovery conversation.
 
 ### Input Detection — Single vs Multi-Item
@@ -77,7 +77,7 @@ C) Let me pick which ones to create individually and which to group
 Before starting the conversation:
 1. **Read `PROJECT_CONTEXT.md`** — OBLIGATORY. Read ALL 10 sections. Understand the project's stack, architecture, data model, conventions, testing strategy, auth, styling, dependencies, and lessons learned. All of this informs the TECH section of your issues.
 2. **If a doc path was provided** — Read it FIRST. This is the primary requirements source. Skip Discovery phase.
-3. **If no doc path** — Auto-discover: check `docs/` for `feature-brief-*.md`, `project-brief-*.md`, or product discovery summaries.
+3. **If no doc path** — Auto-discover: check `.opencode/work/docs/` for `feature-brief-*.md`, `project-brief-*.md`, or product discovery summaries.
 4. Detect the authenticated GitHub user: `gh api user --jq .login`
 5. **PARALLELIZE ALL CONTEXT READING** — Use `task()` to spawn parallel subagents for reading ALL context sources simultaneously (PROJECT_CONTEXT.md, brief files, related issues, codebase patterns). Never read context files sequentially when they can be read in parallel.
 

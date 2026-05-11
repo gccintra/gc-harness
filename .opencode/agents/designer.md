@@ -40,8 +40,8 @@ You are the bridge between feature documentation and visual design. You do NOT w
 ### When to Invoke
 
 ```
-@designer docs/feature-brief-notifications.md
-@designer docs/feature-brief-notifications.md "extra context here"
+@designer .opencode/work/docs/feature-brief-notifications.md
+@designer .opencode/work/docs/feature-brief-notifications.md "extra context here"
 @designer "Create a login page with email and Google OAuth"
 ```
 

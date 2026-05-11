@@ -168,7 +168,7 @@ Before starting ANY conversation, gather ALL available context. Use `task()` to 
 | # | Source | How to Check | Why |
 |---|--------|-------------|-----|
 | 1 | **PROJECT_CONTEXT.md** | Read entire file | Architecture, stack, data model, dev commands, conventions — the foundation |
-| 2 | **docs/ folder** | `ls docs/` then read relevant files | Feature Briefs, Project Briefs, journey maps, metrics sheets from previous conversations |
+| 2 | **.opencode/work/docs/ folder** | `ls .opencode/work/docs/` then read relevant files | Feature Briefs, Project Briefs, journey maps, metrics sheets from previous conversations |
 | 3 | **GitHub Issues** | `gh issue list --limit 20 --state open` + `gh issue list --limit 10 --state closed` | Related features in progress, completed work, bug reports, open discussions |
 | 4 | **Repo structure** | `ls`, `tree` (limited depth), `glob` for relevant patterns | Understand what modules, pages, or services already exist that relate to the topic |
 | 5 | **Figma designs** | If PROJECT_CONTEXT.MD §8 has a Figma file key, use `figma_get_design_context` or `figma_get_screenshot` to inspect existing designs | Understand current UI, find reusable components, reference existing screens |
@@ -179,7 +179,7 @@ Before starting ANY conversation, gather ALL available context. Use `task()` to 
 // Spawn 4 subagents simultaneously to gather context:
 task(description="Read PROJECT_CONTEXT.md", prompt="Read PROJECT_CONTEXT.md and return a summary of: architecture, data model entities, dev commands, and existing features.")
 
-task(description="Scan docs/ folder", prompt="List and read all files in docs/ directory. Summarize: what features have been discussed? What decisions were made? What briefs exist?")
+task(description="Scan .opencode/work/docs/ folder", prompt="List and read all files in .opencode/work/docs/ directory. Summarize: what features have been discussed? What decisions were made? What briefs exist?")
 
 task(description="Check GitHub issues", prompt="Run: gh issue list --limit 20 --state open. Then run: gh issue list --limit 10 --state closed. Return: which issues relate to [TOPIC]? What's already in progress? What was recently completed?")
 
@@ -192,7 +192,7 @@ task(description="Scan repo for related code", prompt="Glob the repo for pattern
 📊 Context gathered before we start:
 
 **From PROJECT_CONTEXT.md:** [key points relevant to this discussion]
-**From docs/:** [N] briefs found — [list relevant ones]
+**From .opencode/work/docs/:** [N] briefs found — [list relevant ones]
 **From GitHub Issues:** [N] related issues — #[num] in progress, #[num] completed
 **From Repo:** existing [module/service/page] already handles [related functionality]
 
@@ -243,8 +243,8 @@ After the Product Discovery Summary, immediately ask:
 Before we wrap up: want me to save this as a document?
 
 I can generate:
-A) A Feature Brief (for feature-level discussions — what we just had) → docs/feature-brief-<slug>.md
-B) A Project Brief (for project/product-level ideas) → docs/project-brief-<slug>.md
+A) A Feature Brief (for feature-level discussions — what we just had) → .opencode/work/docs/feature-brief-<slug>.md
+B) A Project Brief (for project/product-level ideas) → .opencode/work/docs/project-brief-<slug>.md
 C) A custom document (KPIs, journey map, vision, competitive analysis)
 D) No document — the inline summary above is enough
 ```
@@ -257,32 +257,32 @@ D) No document — the inline summary above is enough
 | Project/product idea (new system, new product, greenfield) | **Option B — Project Brief** |
 | Only KPIs/metrics, only journey map, only competitive analysis | **Option C — Custom (specific type)** |
 
-**Feature Brief Template** — Invoke the `feature-brief` skill. Saves to `docs/feature-brief-<slug>.md`. Covers: User Story (JTBD), Contexto & Motivação, Fluxo Happy Path, MoSCoW, Regras de Negócio, Edge Cases, Métricas de Sucesso, Dependências & Riscos, Referências.
+**Feature Brief Template** — Invoke the `feature-brief` skill. Saves to `.opencode/work/docs/feature-brief-<slug>.md`. Covers: User Story (JTBD), Contexto & Motivação, Fluxo Happy Path, MoSCoW, Regras de Negócio, Edge Cases, Métricas de Sucesso, Dependências & Riscos, Referências.
 
-**Project Brief Template** — Use for project/product-level ideas only. Invoke the `project-brief` skill, which saves to `docs/project-brief-<slug>.md`. (Template defined in the skill itself — covers Visão Geral, Problema & Solução, Público-Alvo, Stack, Arquitetura, etc.)
+**Project Brief Template** — Use for project/product-level ideas only. Invoke the `project-brief` skill, which saves to `.opencode/work/docs/project-brief-<slug>.md`. (Template defined in the skill itself — covers Visão Geral, Problema & Solução, Público-Alvo, Stack, Arquitetura, etc.)
 
 **Document formats by conversation type:**
 
 | What We Discussed | Best Document Format | Saved To |
 |------------------|---------------------|----------|
-| Feature scope, rules, edge cases, flow (most common) | Feature Brief | `docs/feature-brief-<slug>.md` |
-| New product/project idea, greenfield, stack decisions | Project Brief (`project-brief` skill) | `docs/project-brief-<slug>.md` |
-| KPIs & success metrics only | Metrics Sheet | `docs/metrics-<slug>.md` |
-| User journey & UX flow | Journey Map | `docs/journey-<slug>.md` |
-| Product vision & strategy | Vision Document | `docs/vision-<slug>.md` |
-| Competitive analysis | Competitive Landscape | `docs/competitive-<slug>.md` |
+| Feature scope, rules, edge cases, flow (most common) | Feature Brief | `.opencode/work/docs/feature-brief-<slug>.md` |
+| New product/project idea, greenfield, stack decisions | Project Brief (`project-brief` skill) | `.opencode/work/docs/project-brief-<slug>.md` |
+| KPIs & success metrics only | Metrics Sheet | `.opencode/work/docs/metrics-<slug>.md` |
+| User journey & UX flow | Journey Map | `.opencode/work/docs/journey-<slug>.md` |
+| Product vision & strategy | Vision Document | `.opencode/work/docs/vision-<slug>.md` |
+| Competitive analysis | Competitive Landscape | `.opencode/work/docs/competitive-<slug>.md` |
 
 **If the user chooses option A (Feature Brief):**
 - Invoke the `feature-brief` skill
-- It saves to `docs/feature-brief-<slug>.md`
+- It saves to `.opencode/work/docs/feature-brief-<slug>.md`
 
 **If the user chooses option B (Project Brief):**
 - Invoke the `project-brief` skill
-- It saves to `docs/project-brief-<slug>.md`
+- It saves to `.opencode/work/docs/project-brief-<slug>.md`
 
 **If the user chooses option C (custom):**
 - Adapt the document structure to the conversation topic
-- Create the file at `docs/<appropriate-name>.md`
+- Create the file at `.opencode/work/docs/<appropriate-name>.md`
 - Use clear section headers reflecting what was discussed
 - Always include: date, summary of the conversation, key decisions, and next steps
 
@@ -337,7 +337,7 @@ When the discussion is complete, provide a clear summary and recommend next step
 ### Recommended Next Steps (copy-paste ready)
 
 # If a Feature Brief or Project Brief was generated:
-@issue-crafter docs/feature-brief-<slug>.md    → create a GitHub issue from this brief
+@issue-crafter .opencode/work/docs/feature-brief-<slug>.md    → create a GitHub issue from this brief
 
 # Or go straight to implementation (if you're ready):
 @orchestrator-tdd "<description>"   → TDD pipeline (tests first)
@@ -349,8 +349,8 @@ When the discussion is complete, provide a clear summary and recommend next step
 
 ### Skills Available
 
-- `feature-brief` — Generate a structured Feature Brief from a feature discussion. Saves to `docs/feature-brief-<slug>.md`. Use for feature-level conversations (scope, rules, edge cases, flow).
-- `project-brief` — Generate a structured Project Brief from a project/product idea. Saves to `docs/project-brief-<slug>.md`. Use for project-level conversations (vision, stack, architecture).
+- `feature-brief` — Generate a structured Feature Brief from a feature discussion. Saves to `.opencode/work/docs/feature-brief-<slug>.md`. Use for feature-level conversations (scope, rules, edge cases, flow).
+- `project-brief` — Generate a structured Project Brief from a project/product idea. Saves to `.opencode/work/docs/project-brief-<slug>.md`. Use for project-level conversations (vision, stack, architecture).
 
 ### Principles
 

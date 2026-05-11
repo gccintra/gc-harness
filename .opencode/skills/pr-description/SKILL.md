@@ -35,7 +35,7 @@ From branch name:
 | `feat/` or `feature/` | New Feature |
 | `fix/` or `bugfix/` | Bug Fix |
 | `refactor/` | Refactoring |
-| `docs/` | Documentation |
+| `.opencode/work/docs/` | Documentation |
 | `test/` | Tests |
 | `chore/` | Maintenance |
 | `hotfix/` | Hotfix |
@@ -49,13 +49,13 @@ Check branch name and commit messages for:
 ### Step 4: Collect Test Evidence
 ```bash
 # Find test logs
-ls -t agents/logs/test-run-*.md | head -1
+ls -t .opencode/work/logs/test-run-*.md | head -1
 
 # Find coverage report
-ls -t agents/logs/coverage-*.md | head -1
+ls -t .opencode/work/logs/coverage-*.md | head -1
 
 # Find security scan
-ls -t agents/logs/security-*.md | head -1
+ls -t .opencode/work/logs/security-*.md | head -1
 ```
 
 ---
@@ -82,14 +82,14 @@ ls -t agents/logs/security-*.md | head -1
 - [ ] Manual testing completed
 
 ### Test Evidence
-- **Test Log:** [test-run-<num>.md](./agents/logs/test-run-<num>.md)
+- **Test Log:** [test-run-<num>.md](./.opencode/work/logs/test-run-<num>.md)
 - **Tests:** X passed, 0 failed
 - **Coverage:** XX% (threshold: 80%)
 
 ## Security
 - [x] Security scan passed
 - [x] No sensitive data exposed
-- **Security Report:** [security-<num>.md](./agents/logs/security-<num>.md)
+- **Security Report:** [security-<num>.md](./.opencode/work/logs/security-<num>.md)
 
 ## Screenshots
 <!-- If UI changes, include before/after screenshots -->
@@ -199,7 +199,7 @@ difficult. This refactor improves test coverage from 45% to 92%.
 **Linked Issue:** #42
 
 **Test Evidence:**
-- Test Log: agents/logs/test-run-42-20240315.md
+- Test Log: .opencode/work/logs/test-run-42-20240315.md
 - Coverage: 87%
 - Security: Passed
 

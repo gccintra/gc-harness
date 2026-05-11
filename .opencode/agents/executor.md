@@ -87,7 +87,7 @@ REVIEW CHANGES REQUESTED:
 ### Step 1: Read the Task File
 
 Read the unified task file created by the orchestrator:
-- `agents/tasks/<id>.md` — contains EVERYTHING: problem, approach, implementation plan, tasks, testing strategy
+- `.opencode/work/tasks/<id>.md` — contains EVERYTHING: problem, approach, implementation plan, tasks, testing strategy
 - `PROJECT_CONTEXT.md` — Read ALL 10 sections. Trust it: architecture, data model, dev commands, conventions, testing strategy, auth, styling, dependencies, lessons learned. Only read source code directly when the context lacks implementation-specific detail.
 
 The task file has a `### Tasks` section with checkboxes. These are YOUR work items.
@@ -186,7 +186,7 @@ task(
   category="unspecified-low",
   load_skills=["test-runner", "test-logger", "coverage-reporter"],
   description="Test <id>",
-  prompt="Read agents/tasks/<id>.md and PROJECT_CONTEXT.md. Run the full test suite. Generate coverage report. Log results to agents/logs/. Update the Evidence section in agents/tasks/<id>.md with log paths. If tests FAIL, update Status to IN_PROGRESS and delegate back to executor to fix.",
+  prompt="Read .opencode/work/tasks/<id>.md and PROJECT_CONTEXT.md. Run the full test suite. Generate coverage report. Log results to .opencode/work/logs/. Update the Evidence section in .opencode/work/tasks/<id>.md with log paths. If tests FAIL, update Status to IN_PROGRESS and delegate back to executor to fix.",
   run_in_background=false
 )
 ```
@@ -272,7 +272,7 @@ After completing implementation:
 ### Gate G3: PASSED
 
 ### Task File Updated
-agents/tasks/<id>.md — all checkboxes marked, status IN_PROGRESS
+.opencode/work/tasks/<id>.md — all checkboxes marked, status IN_PROGRESS
 
 Next: **MANDATORY handoff to tester** (via task() with load_skills=["test-runner", "test-logger", "coverage-reporter"])
 ```

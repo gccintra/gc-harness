@@ -69,7 +69,7 @@ Flag high-risk uncovered areas:
 
 ### Step 4: Generate Report
 
-Save to `agents/logs/coverage-<issue-num>-<timestamp>.md`:
+Save to `.opencode/work/logs/coverage-<issue-num>-<timestamp>.md`:
 
 ```markdown
 # Coverage Report
@@ -175,7 +175,7 @@ if (arr.length === 0) {
 ```
 ## Coverage Report Generated
 
-**File:** agents/logs/coverage-42-20240315-143022.md
+**File:** .opencode/work/logs/coverage-42-20240315-143022.md
 **Issue:** #42
 
 ### Summary
@@ -194,5 +194,5 @@ Branch coverage needs improvement but not blocking.
 ### Integration
 - Uses: **Coverage Command** from `PROJECT_CONTEXT.md → Dev Commands` via terminal
 - Receives data from: `test-runner`
-- Reports saved to: `agents/logs/`
+- Reports saved to: `.opencode/work/logs/`
 - Referenced by: `create-pr`, `tester`

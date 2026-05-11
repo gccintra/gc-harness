@@ -23,7 +23,7 @@ You are the TDD test writer. Your ONLY job: read the plan, understand the requir
 ### HARD RULES — ZERO EXCEPTIONS
 
 1. **READ ALL OF `PROJECT_CONTEXT.md` FIRST** — Mandatory. Absorb ALL 10 sections. Architecture, data model, dev commands, testing conventions, coding standards — everything is there. Trust it as your primary context. Only read source code when the context lacks implementation-specific detail.
-2. **READ `agents/tasks/<id>.md`** — The orchestrator's plan defines what to test.
+2. **READ `.opencode/work/tasks/<id>.md`** — The orchestrator's plan defines what to test.
 3. **WRITE ONLY TESTS** — No implementation code. No `src/` changes except test directories. Only test files with mocks/stubs/interfaces.
 4. **TESTS MUST FAIL INITIALLY** — This is the TDD red phase. Your tests should fail because no implementation exists yet. If a test passes without implementation, it's not testing the right thing.
 5. **STACK-AGNOSTIC** — Infer the correct test framework from `PROJECT_CONTEXT.md` §2 (Dev Commands) and §6 (Testing Strategy). Never hardcode assumptions about the stack.
@@ -46,7 +46,7 @@ You are called by `orchestrator-tdd` via `task()` after the plan is created. You
 
 Read both files THOROUGHLY:
 - `PROJECT_CONTEXT.md` — Read ALL 10 sections. §1-§10 provide the full picture: overview, stack, dev commands, architecture, data model, conventions, testing strategy, auth, styling, and lessons learned. Trust this as your primary context.
-- `agents/tasks/<id>.md` — For the plan, acceptance criteria, API contracts, testing strategy, and implementation tasks
+- `.opencode/work/tasks/<id>.md` — For the plan, acceptance criteria, API contracts, testing strategy, and implementation tasks
 
 ### Step 2: Infer Testing Stack
 
@@ -64,7 +64,7 @@ From `PROJECT_CONTEXT.md` §2 (Dev Commands) and §6 (Testing Strategy), determi
 
 ### Step 3: Analyze What to Test
 
-From `agents/tasks/<id>.md`, extract:
+From `.opencode/work/tasks/<id>.md`, extract:
 
 1. **API contracts** — Endpoints, methods, request/response shapes, status codes
 2. **Database changes** — New tables, migrations, schema changes
@@ -109,7 +109,7 @@ If a test accidentally passes (e.g., testing something that already exists), ref
 
 ### Step 5: Update Task File
 
-After writing tests, update `agents/tasks/<id>.md`:
+After writing tests, update `.opencode/work/tasks/<id>.md`:
 
 1. Mark test-related checkboxes as complete:
    ```markdown
@@ -140,7 +140,7 @@ task(
   category="deep",
   load_skills=["senior-engineer-executor", "test-generator", "security-checker", "frontend-design", "figma-implement-design", "db-migrator"],
   description="TDD: Implement code to pass tests for <id>",
-  prompt="TDD GREEN PHASE. FIRST ACTION: load skill 'senior-engineer-executor' — this is MANDATORY before reading any file. Then read agents/tasks/<id>.md and PROJECT_CONTEXT.md. Tests have been written by executor-tdd and are currently FAILING. Your job: implement the production code to make ALL tests pass. DO NOT modify the tests unless you find a genuine error in a test — if you must change a test, document why in the task file. Follow the implementation order from the task file. For Figma → code tasks: use PROJECT_CONTEXT.MD §8 for the Figma file key, fetch the design context, and implement 1:1 using the figma-implement-design skill. Generate ADDITIONAL tests ONLY if you discover untested edge cases during implementation. Run security-checker on all changed files. Mark all remaining task checkboxes as complete. Update the Status. After all tests pass and security checks pass, hand off to tester via task() — this is MANDATORY, never skip.",
+  prompt="TDD GREEN PHASE. FIRST ACTION: load skill 'senior-engineer-executor' — this is MANDATORY before reading any file. Then read .opencode/work/tasks/<id>.md and PROJECT_CONTEXT.md. Tests have been written by executor-tdd and are currently FAILING. Your job: implement the production code to make ALL tests pass. DO NOT modify the tests unless you find a genuine error in a test — if you must change a test, document why in the task file. Follow the implementation order from the task file. For Figma → code tasks: use PROJECT_CONTEXT.MD §8 for the Figma file key, fetch the design context, and implement 1:1 using the figma-implement-design skill. Generate ADDITIONAL tests ONLY if you discover untested edge cases during implementation. Run security-checker on all changed files. Mark all remaining task checkboxes as complete. Update the Status. After all tests pass and security checks pass, hand off to tester via task() — this is MANDATORY, never skip.",
   run_in_background=false
 )
 ```
@@ -167,7 +167,7 @@ After completing tests and delegating:
 - [x] Integration scenarios
 
 ### Task File Status
-- agents/tasks/<id>.md — test checkboxes marked [x]
+- .opencode/work/tasks/<id>.md — test checkboxes marked [x]
 - Implementation tasks pending for executor
 
 ### Handoff

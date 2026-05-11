@@ -23,7 +23,7 @@ Execute rigorous unit, integration, and E2E tests. Never simulate tests.
 
 ### Skills Available
 - `test-runner` - Execute tests and capture results
-- `test-logger` - Record results to agents/logs/
+- `test-logger` - Record results to .opencode/work/logs/
 - `coverage-reporter` - Generate coverage reports
 - `lessons-writer` - Update PROJECT_CONTEXT.md with learnings (MANDATORY Step 9)
 
@@ -42,7 +42,7 @@ Only inspect source code directly when the context lacks sufficient detail to ru
 ### Step 1: Read Context
 
 Read the unified task file and project context:
-- `agents/tasks/<id>.md` — contains the spec, acceptance criteria, and testing strategy
+- `.opencode/work/tasks/<id>.md` — contains the spec, acceptance criteria, and testing strategy
 - `PROJECT_CONTEXT.md` — for test commands, coverage thresholds, environment setup
 
 ### Step 2: Prepare Environment
@@ -55,7 +55,7 @@ Read `PROJECT_CONTEXT.md` section `## 2. Technology Stack — Dev Commands` and:
 Use `test-runner` skill:
 
 ```
-test-runner --task agents/tasks/<id>.md
+test-runner --task .opencode/work/tasks/<id>.md
 ```
 
 This executes:
@@ -109,17 +109,17 @@ test-logger --task <id> --results <test-output>
 ```
 
 This creates:
-- `agents/logs/test-run-<id>-<timestamp>.md`
-- `agents/logs/coverage-<id>-<timestamp>.md`
+- `.opencode/work/logs/test-run-<id>-<timestamp>.md`
+- `.opencode/work/logs/coverage-<id>-<timestamp>.md`
 
 ### Step 7: Update Task File
 
-Update the `## Evidence` section in `agents/tasks/<id>.md`:
+Update the `## Evidence` section in `.opencode/work/tasks/<id>.md`:
 
 ```markdown
 ## Evidence (filled by tester/reviewer)
-- **Test Log:** agents/logs/test-run-<id>-<timestamp>.md
-- **Coverage:** agents/logs/coverage-<id>-<timestamp>.md
+- **Test Log:** .opencode/work/logs/test-run-<id>-<timestamp>.md
+- **Coverage:** .opencode/work/logs/coverage-<id>-<timestamp>.md
 ```
 
 ### Step 8: Gate Verification
@@ -157,7 +157,7 @@ task(
   category="unspecified-low",
   load_skills=["code-reviewer", "quick-review", "security-checker", "lessons-writer"],
   description="Review <id>",
-  prompt="Read agents/tasks/<id>.md and PROJECT_CONTEXT.md. Review all changed files for quality and security. Update the Evidence section in agents/tasks/<id>.md. If APPROVED: update Status to READY_TO_COMMIT and inform the user they can run @committer. If CHANGES REQUESTED: update Status to IN_PROGRESS and delegate back to executor to fix. DO NOT auto-commit. DO NOT call @committer. This review handoff is MANDATORY.",
+  prompt="Read .opencode/work/tasks/<id>.md and PROJECT_CONTEXT.md. Review all changed files for quality and security. Update the Evidence section in .opencode/work/tasks/<id>.md. If APPROVED: update Status to READY_TO_COMMIT and inform the user they can run @committer. If CHANGES REQUESTED: update Status to IN_PROGRESS and delegate back to executor to fix. DO NOT auto-commit. DO NOT call @committer. This review handoff is MANDATORY.",
   run_in_background=false
 )
 ```
@@ -170,7 +170,7 @@ task(
   category="deep",
   load_skills=["senior-engineer-executor", "test-generator"],
   description="Fix test failures <id>",
-  prompt="Read agents/tasks/<id>.md. Fix the following test failures:\n<failure details with file:line and error messages>\nFIRST ACTION: load skill 'senior-engineer-executor' — this is MANDATORY. Fix the issues, re-run tests, and hand off to tester again via task() with load_skills=['test-runner','test-logger','coverage-reporter']. The tester MUST be called after every implementation.",
+  prompt="Read .opencode/work/tasks/<id>.md. Fix the following test failures:\n<failure details with file:line and error messages>\nFIRST ACTION: load skill 'senior-engineer-executor' — this is MANDATORY. Fix the issues, re-run tests, and hand off to tester again via task() with load_skills=['test-runner','test-logger','coverage-reporter']. The tester MUST be called after every implementation.",
   run_in_background=false
 )
 ```
@@ -223,8 +223,8 @@ Check `src/services/userService.ts:23` for missing validation
 - Threshold: 80%
 
 ### Logs Generated
-- agents/logs/test-run-<id>-<timestamp>.md
-- agents/logs/coverage-<id>-<timestamp>.md
+- .opencode/work/logs/test-run-<id>-<timestamp>.md
+- .opencode/work/logs/coverage-<id>-<timestamp>.md
 
 ### Task File Updated
 - Evidence section filled
@@ -240,6 +240,6 @@ Next: reviewer
 
 ## Integration
 - Receives from: executor (implementation complete)
-- Reports to: `agents/logs/` directory
+- Reports to: `.opencode/work/logs/` directory
 - On PASS: Handoff to reviewer via `task()`
 - On FAIL: Return to executor via `task()` with failure details

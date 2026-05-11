@@ -1,6 +1,6 @@
 ---
 name: test-logger
-description: Records test execution results to markdown files in agents/logs/ for traceability and PR documentation.
+description: Records test execution results to markdown files in .opencode/work/logs/ for traceability and PR documentation.
 ---
 ## Test Logger Skill
 
@@ -12,7 +12,7 @@ Persist test execution results to structured markdown files for traceability, au
 - Before creating a PR (to attach evidence)
 
 ### Log Location
-`agents/logs/test-run-<issue-num>-<timestamp>.md`
+`.opencode/work/logs/test-run-<issue-num>-<timestamp>.md`
 
 ### Log File Structure
 ```markdown
@@ -145,10 +145,10 @@ test-run-<issue-num>-<YYYYMMDD-HHMMSS>.md
 Example: `test-run-42-20240315-143022.md`
 
 #### Step 3: Write Log File
-Save to `agents/logs/` directory
+Save to `.opencode/work/logs/` directory
 
 #### Step 4: Update Index
-Append to `agents/logs/index.md` (create the file if it doesn't exist):
+Append to `.opencode/work/logs/index.md` (create the file if it doesn't exist):
 ```markdown
 | Date | Issue | Tests | Result | Log |
 |------|-------|-------|--------|-----|
@@ -157,14 +157,14 @@ Append to `agents/logs/index.md` (create the file if it doesn't exist):
 
 ### Log Retention
 - Keep all logs for the duration of the issue
-- Archive to `agents/logs/archive/` after PR merge
+- Archive to `.opencode/work/logs/archive/` after PR merge
 - Never delete failure logs
 
 ### Output Format
 ```
 ## Test Log Created
 
-**File:** agents/logs/test-run-42-20240315-143022.md
+**File:** .opencode/work/logs/test-run-42-20240315-143022.md
 **Issue:** #42
 **Result:** PASS (46/48 tests)
 **Coverage:** 85.2%
