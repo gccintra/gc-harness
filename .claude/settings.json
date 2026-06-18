@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "Read(*)",
+      "Write(*)",
+      "Edit(*)",
+      "Glob(*)",
+      "Grep(*)",
+      "WebFetch(*)",
+      "WebSearch(*)",
+      "Task(*)"
+    ],
+    "deny": []
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f CLAUDE.md ] && echo \"[harness] CLAUDE.md: $(wc -l < CLAUDE.md) lines | Stack: $(grep -m1 'Backend\\|Frontend\\|Language' CLAUDE.md 2>/dev/null | head -1 | tr -d '|' | xargs || echo 'see §2')\" || echo '[harness] No CLAUDE.md found — run /context-generator to create one'"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "context-engineering@context-engineering-marketplace": true
+  }
+}

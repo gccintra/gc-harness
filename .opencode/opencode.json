@@ -1,10 +1,19 @@
 {
-  "$schema": "https://opencode.ai/config.json",
-  "permission": {
-    "skill": {
-      "*": "allow"
+  "plugin": ["opencode-goal-plugin"],
+  "command": {
+    "goal": {
+      "description": "Set a session-scoped goal and auto-continue until complete.",
+      "template": "$ARGUMENTS",
+      "agent": "build"
+    },
+    "tech-lead": {
+      "description": "Tech Lead — discute abordagem técnica, propõe soluções com tradeoffs, gera docs markdown (specs/RFC/ADR/system design). Não implementa nem altera código.",
+      "template": "$ARGUMENTS",
+      "agent": "tech-lead"
     }
   },
+  "$schema": "https://opencode.ai/config.json",
+  "permission": "allow",
   "mcp": {
     "figma": {
       "enabled": true,
@@ -20,5 +29,5 @@
       "url": "https://mcp.firecrawl.dev/${FIRECRAWL_API_KEY}/v2/mcp",
       "enabled": true
     }
-  },
+  }
 }
