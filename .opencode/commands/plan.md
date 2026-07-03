@@ -25,10 +25,10 @@ Otherwise use `$ARGUMENTS` as the problem statement directly.
 ### Step 2: Check context docs before investigating code
 
 Read what's relevant to this change:
-- **API.md** — if adding/changing routes (check existing contracts)
-- **DATA_MODEL.md** — if touching DB (check existing schema)
-- **DECISIONS.md** — if the change touches an area with known ADRs
-- **FOLDER_ARCH.md** — where new files should go
+- **context/API.md** — if adding/changing routes (check existing contracts)
+- **context/DATA_MODEL.md** — if touching DB (check existing schema)
+- **context/DECISIONS.md** — if the change touches an area with known ADRs
+- **context/FOLDER_ARCH.md** — where new files should go
 
 Do NOT read the whole repo. Only read docs relevant to this change.
 

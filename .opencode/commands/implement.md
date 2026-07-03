@@ -11,12 +11,12 @@ Implement inline. Full context already available — no briefing, no cold start.
 
 Read only what you need:
 - **CLAUDE.md §2** — dev commands, test commands
-- **GOTCHAS.md** — read this first, saves you from known pitfalls
-- **ARCH.md** — if touching architecture, sessions, or PTY
-- **API.md** — if adding/changing routes
-- **DATA_MODEL.md** — if touching DB or schema
-- **DESIGN.md** — if touching UI
-- **DECISIONS.md** — if touching an area with known ADRs (read before questioning any design choice)
+- **context/GOTCHAS.md** — read this first, saves you from known pitfalls
+- **context/ARCH.md** — if touching architecture, sessions, or PTY
+- **context/API.md** — if adding/changing routes
+- **context/DATA_MODEL.md** — if touching DB or schema
+- **context/DESIGN.md** — if touching UI
+- **context/DECISIONS.md** — if touching an area with known ADRs (read before questioning any design choice)
 - **Task file** (if exists) — problem, AC, API/DB changes, files to modify, test scope
 
 Do NOT read the whole repo.
@@ -52,7 +52,7 @@ Zero tests is valid if all rows are NO.
 
 Read only the files you need to change. Minimal diff — only what the task requires.
 
-Gotchas already loaded from GOTCHAS.md in Step 0 — apply them.
+Gotchas already loaded from context/GOTCHAS.md in Step 0 — apply them.
 
 **Figma:** if task has Figma URL → `figma_get_design_context` → `/figma-implement-design`
 
@@ -94,7 +94,7 @@ Scan and check:
 - [ ] Auth on all non-public routes; input validated at boundaries
 - [ ] No hardcoded secrets, no path traversal
 - [ ] All YES rows from Step 2 triage have tests
-- [ ] Conventions clean (per CLAUDE.md + GOTCHAS.md)
+- [ ] Conventions clean (per CLAUDE.md + context/GOTCHAS.md)
 - [ ] No debug code, no unrelated changes
 
 **Issue found:** fix (Step 3) → re-run diff → re-check.
@@ -106,13 +106,13 @@ Scan and check:
 
 | Changed | Update |
 |---------|--------|
-| Route added/removed/changed | `API.md` |
-| New folder or file convention | `FOLDER_ARCH.md` |
-| New layer, data flow, component | `ARCH.md` |
-| Schema change | `DATA_MODEL.md` |
-| New design token or pattern | `DESIGN.md` |
-| Non-obvious gotcha | `GOTCHAS.md` + `/lessons-writer` |
-| Architectural decision | `DECISIONS.md` |
+| Route added/removed/changed | `context/API.md` |
+| New folder or file convention | `context/FOLDER_ARCH.md` |
+| New layer, data flow, component | `context/ARCH.md` |
+| Schema change | `context/DATA_MODEL.md` |
+| New design token or pattern | `context/DESIGN.md` |
+| Non-obvious gotcha | `context/GOTCHAS.md` + `/lessons-writer` |
+| Architectural decision | `context/DECISIONS.md` |
 
 Nothing structural → skip.
 

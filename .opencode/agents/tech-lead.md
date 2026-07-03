@@ -36,7 +36,7 @@ You sit between product discovery and implementation:
 ## Workflow
 
 ### Step 1: Understand the Terrain
-1. Read `CLAUDE.md` (and relevant specialized docs: `DECISIONS.md`, `API.md`, `DATA_MODEL.md` if they exist).
+1. Read `CLAUDE.md` (and relevant specialized docs: `context/DECISIONS.md`, `context/API.md`, `context/DATA_MODEL.md` if they exist).
 2. If the current implementation matters: delegate a broad scan to `cavecrew-investigator` (`model: "haiku"`) and consume its `file:line` map. Narrow checks inline.
 
 ### Step 2: Discuss

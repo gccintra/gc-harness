@@ -8,8 +8,8 @@ Generate **risk-based** tests for implemented code. Goal is NOT coverage % —
 goal is tests where a bug costs money, data, or a core flow.
 
 ### Prerequisites — read before writing any test
-1. **TESTING-POLICY.md** — MANDATORY. Defines MUST-test vs DO NOT test. Do not write a test the policy lists under "Do NOT test".
-2. **DATA_MODEL.md** — if testing DB code (routes, queries, schema changes). Know the schema before mocking it.
+1. **context/TESTING-POLICY.md** — MANDATORY. Defines MUST-test vs DO NOT test. Do not write a test the policy lists under "Do NOT test".
+2. **context/DATA_MODEL.md** — if testing DB code (routes, queries, schema changes). Know the schema before mocking it.
 3. **CLAUDE.md §2** — test commands, runtime/version requirements for the test runner.
 
 ### Step 0: Triage gate (do this BEFORE writing any test)

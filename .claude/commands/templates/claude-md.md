@@ -64,7 +64,7 @@
 | [Entity 1] | [field1, field2] | [belongs to X, has many Y] |
 | [Entity 2] | ... | ... |
 
-> For full schema → see `DATA_MODEL.md` (if exists)
+> For full schema → see `context/DATA_MODEL.md` (if exists)
 
 ---
 
@@ -105,7 +105,7 @@
 - **CSS Approach:** [Tailwind / CSS Modules / Styled Components]
 - **Color Palette:** [brief description or main tokens]
 
-> For full design system → see `DESIGN.md` (if exists)
+> For full design system → see `context/DESIGN.md` (if exists)
 
 ---
 
@@ -131,10 +131,10 @@
 
 | File | Purpose | When to read |
 |------|---------|--------------|
-| `DESIGN.md` | Tokens, typography, palette, components | Frontend/UI tasks |
-| `API.md` | Endpoints, contracts, error codes | Integration, tests |
-| `DATA_MODEL.md` | Full schema, relationships | DB/migration tasks |
-| `DECISIONS.md` | ADRs, architectural decisions | Planning, review |
+| `context/DESIGN.md` | Tokens, typography, palette, components | Frontend/UI tasks |
+| `context/API.md` | Endpoints, contracts, error codes | Integration, tests |
+| `context/DATA_MODEL.md` | Full schema, relationships | DB/migration tasks |
+| `context/DECISIONS.md` | ADRs, architectural decisions | Planning, review |
 | `WORKFLOWS.md` | CI/CD, branching, deploy | Commit, hotfix |
 
 ---

@@ -1,6 +1,6 @@
 ---
 name: lessons-writer
-description: Appends a new entry to CLAUDE.md § Lessons Learned and GOTCHAS.md. Call only when something non-obvious was discovered.
+description: Appends a new entry to CLAUDE.md § Lessons Learned and context/GOTCHAS.md. Call only when something non-obvious was discovered.
 ---
 ## Lessons Writer
 
@@ -13,7 +13,7 @@ Only call for genuinely non-obvious findings — not generic best practices.
 
 ### What NOT to write
 - Generic best practices ("always validate input")
-- Things already in CLAUDE.md or GOTCHAS.md
+- Things already in CLAUDE.md or context/GOTCHAS.md
 - Anything obvious to a senior engineer
 
 ---
@@ -34,9 +34,9 @@ NEVER overwrite or delete existing entries.
 
 ---
 
-### Step 2: Write to GOTCHAS.md (if it's a pitfall)
+### Step 2: Write to context/GOTCHAS.md (if it's a pitfall)
 
-If the learning is a "gotcha" — something that would cause a silent bug or crash if not known — also add a quick entry to `GOTCHAS.md` under the relevant section.
+If the learning is a "gotcha" — something that would cause a silent bug or crash if not known — also add a quick entry to `context/GOTCHAS.md` under the relevant section.
 
 ```markdown
 ### <Title>
@@ -51,7 +51,7 @@ goodPattern();
 ```
 ```
 
-If the learning is a design decision (not a pitfall), skip GOTCHAS.md — it goes only in CLAUDE.md.
+If the learning is a design decision (not a pitfall), skip context/GOTCHAS.md — it goes only in CLAUDE.md.
 
 ---
 
@@ -59,5 +59,5 @@ If the learning is a design decision (not a pitfall), skip GOTCHAS.md — it goe
 
 ```
 Added to CLAUDE.md § Lessons Learned: <title>
-Added to GOTCHAS.md § <Section>: <title>  (or: skipped — design decision, not pitfall)
+Added to context/GOTCHAS.md § <Section>: <title>  (or: skipped — design decision, not pitfall)
 ```

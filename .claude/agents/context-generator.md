@@ -19,14 +19,14 @@ Templates for all files are in `.claude/commands/templates/`. Read the relevant 
 | File | Template | Purpose | Read by |
 |------|----------|---------|---------|
 | `CLAUDE.md` | `templates/claude-md.md` | Core context: stack, commands, conventions, lessons | Every skill, every task (always) |
-| `ARCH.md` | `templates/arch-md.md` | System architecture, data flows, component responsibilities | `/implement` (if touching arch/sessions) |
-| `FOLDER_ARCH.md` | `templates/folder-arch-md.md` | Folder structure with conventions for where to put new files | `/implement` (to know where to create files) |
-| `API.md` | `templates/api-md.md` | All REST endpoints with request/response shapes | `/implement` (adding routes), `/plan` |
-| `DATA_MODEL.md` | `templates/data-model-md.md` | DB schema, entities, relationships | `/implement` (DB changes), `/test-generator` |
-| `DESIGN.md` | `templates/design-md.md` | Design tokens, breakpoints, component patterns | `/implement` (UI changes) |
-| `DECISIONS.md` | `templates/decisions-md.md` | Architecture Decision Records — why things are the way they are | `/implement` (before questioning design choices) |
-| `GOTCHAS.md` | `templates/gotchas-md.md` | Project-specific pitfalls — quick scan before implementing | `/implement` (Step 0, always) |
-| `ENVIRONMENT.md` | `templates/environment-md.md` | All environment variables with defaults | `/implement`, `/plan` |
+| `context/ARCH.md` | `templates/arch-md.md` | System architecture, data flows, component responsibilities | `/implement` (if touching arch/sessions) |
+| `context/FOLDER_ARCH.md` | `templates/folder-arch-md.md` | Folder structure with conventions for where to put new files | `/implement` (to know where to create files) |
+| `context/API.md` | `templates/api-md.md` | All REST endpoints with request/response shapes | `/implement` (adding routes), `/plan` |
+| `context/DATA_MODEL.md` | `templates/data-model-md.md` | DB schema, entities, relationships | `/implement` (DB changes), `/test-generator` |
+| `context/DESIGN.md` | `templates/design-md.md` | Design tokens, breakpoints, component patterns | `/implement` (UI changes) |
+| `context/DECISIONS.md` | `templates/decisions-md.md` | Architecture Decision Records — why things are the way they are | `/implement` (before questioning design choices) |
+| `context/GOTCHAS.md` | `templates/gotchas-md.md` | Project-specific pitfalls — quick scan before implementing | `/implement` (Step 0, always) |
+| `context/ENVIRONMENT.md` | `templates/environment-md.md` | All environment variables with defaults | `/implement`, `/plan` |
 
 ---
 
@@ -37,14 +37,14 @@ Templates for all files are in `.claude/commands/templates/`. Read the relevant 
 /context-generator --map        # show status of all files (no creation)
 /context-generator --all        # CLAUDE.md + all relevant files for the stack
 /context-generator --core       # CLAUDE.md only
-/context-generator --arch       # ARCH.md only
-/context-generator --folder     # FOLDER_ARCH.md only
-/context-generator --api        # API.md only
-/context-generator --data       # DATA_MODEL.md only
-/context-generator --design     # DESIGN.md only
-/context-generator --decisions  # DECISIONS.md only
-/context-generator --gotchas    # GOTCHAS.md only
-/context-generator --env        # ENVIRONMENT.md only
+/context-generator --arch       # context/ARCH.md only
+/context-generator --folder     # context/FOLDER_ARCH.md only
+/context-generator --api        # context/API.md only
+/context-generator --data       # context/DATA_MODEL.md only
+/context-generator --design     # context/DESIGN.md only
+/context-generator --decisions  # context/DECISIONS.md only
+/context-generator --gotchas    # context/GOTCHAS.md only
+/context-generator --env        # context/ENVIRONMENT.md only
 /context-generator --update     # update gaps in all existing files
 /context-generator --quick      # auto-detect, minimal questions, single approval
 ```
@@ -56,7 +56,7 @@ Templates for all files are in `.claude/commands/templates/`. Read the relevant 
 1. **READ EXISTING FILES FIRST** — Always check what exists before asking anything.
 2. **NEVER OVERWRITE WITHOUT PERMISSION** — Show what will change, get explicit approval.
 3. **NEVER INVENT DATA** — Use `> _A definir_` for unknowns. Only fill what's confirmed.
-4. **STACK-AWARE** — Don't suggest DESIGN.md for CLI tools. Don't suggest API.md for static sites.
+4. **STACK-AWARE** — Don't suggest context/DESIGN.md for CLI tools. Don't suggest context/API.md for static sites.
 5. **ONE QUESTION AT A TIME** — Ask → wait → continue. Never overwhelm.
 6. **DATE EVERY FILE** — Always set `Last Updated` to today.
 7. **BROAD SCAN VIA INVESTIGATOR** — For broad repo scans (route files, schema files, config sweeps), delegate to `cavecrew-investigator` — ask it to return a compact `file:line` + extracted-value map. Consume the map, don't load all source files yourself. NARROW reads (a single known file) inline.
@@ -68,7 +68,8 @@ Templates for all files are in `.claude/commands/templates/`. Read the relevant 
 ### Step 1: Detect Existing State
 
 ```bash
-ls *.md 2>/dev/null
+ls CLAUDE.md 2>/dev/null
+ls context/*.md 2>/dev/null
 ```
 
 Build status table:
@@ -79,14 +80,14 @@ Build status table:
 | File | Status | Notes |
 |------|--------|-------|
 | CLAUDE.md      | ✅ Exists | Last updated: 2026-01-10 |
-| ARCH.md        | ❌ Missing | |
-| FOLDER_ARCH.md | ❌ Missing | |
-| API.md         | ✅ Exists | Last updated: 2026-01-08 |
-| DATA_MODEL.md  | ❌ Missing | |
-| DESIGN.md      | ❌ Missing | |
-| DECISIONS.md   | ❌ Missing | |
-| GOTCHAS.md     | ❌ Missing | |
-| ENVIRONMENT.md | ❌ Missing | |
+| context/ARCH.md        | ❌ Missing | |
+| context/FOLDER_ARCH.md | ❌ Missing | |
+| context/API.md         | ✅ Exists | Last updated: 2026-01-08 |
+| context/DATA_MODEL.md  | ❌ Missing | |
+| context/DESIGN.md      | ❌ Missing | |
+| context/DECISIONS.md   | ❌ Missing | |
+| context/GOTCHAS.md     | ❌ Missing | |
+| context/ENVIRONMENT.md | ❌ Missing | |
 ```
 
 ### Step 2: Assess Stack Relevance
@@ -94,9 +95,9 @@ Build status table:
 | Stack type | Relevant files |
 |------------|----------------|
 | Full-stack web | All 9 files |
-| Backend API only | CLAUDE.md, ARCH.md, FOLDER_ARCH.md, API.md, DATA_MODEL.md, DECISIONS.md, GOTCHAS.md, ENVIRONMENT.md |
-| Frontend only | CLAUDE.md, FOLDER_ARCH.md, DESIGN.md, API.md (if external APIs), DECISIONS.md, GOTCHAS.md |
-| CLI / library | CLAUDE.md, FOLDER_ARCH.md, DECISIONS.md, GOTCHAS.md, ENVIRONMENT.md |
+| Backend API only | CLAUDE.md, context/ARCH.md, context/FOLDER_ARCH.md, context/API.md, context/DATA_MODEL.md, context/DECISIONS.md, context/GOTCHAS.md, context/ENVIRONMENT.md |
+| Frontend only | CLAUDE.md, context/FOLDER_ARCH.md, context/DESIGN.md, context/API.md (if external APIs), context/DECISIONS.md, context/GOTCHAS.md |
+| CLI / library | CLAUDE.md, context/FOLDER_ARCH.md, context/DECISIONS.md, context/GOTCHAS.md, context/ENVIRONMENT.md |
 | Mobile app | All 9 files |
 
 ### Step 3: Interactive Mode (no flags)
@@ -104,7 +105,7 @@ Build status table:
 Present status + relevance. Ask:
 > "Which files do you want to create/update? (numbers, 'all', or 'core' for just CLAUDE.md)"
 
-Generate in order: CLAUDE.md → ARCH.md → FOLDER_ARCH.md → API.md → DATA_MODEL.md → DESIGN.md → DECISIONS.md → GOTCHAS.md → ENVIRONMENT.md
+Generate in order: CLAUDE.md → context/ARCH.md → context/FOLDER_ARCH.md → context/API.md → context/DATA_MODEL.md → context/DESIGN.md → context/DECISIONS.md → context/GOTCHAS.md → context/ENVIRONMENT.md
 
 **If `--map`:** print status table and STOP.
 
@@ -172,7 +173,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 ---
 
-## ARCH.md
+## context/ARCH.md
 
 **Prerequisites:** Read CLAUDE.md §3. Delegate broad scan of entry points, process structure, IPC to `cavecrew-investigator`.
 
@@ -187,7 +188,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 ---
 
-## FOLDER_ARCH.md
+## context/FOLDER_ARCH.md
 
 **Prerequisites:** Run `find . -type d -not -path '*/node_modules/*' -not -path '*/.git/*' | head -60` via `cavecrew-investigator`.
 
@@ -200,7 +201,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 ---
 
-## API.md
+## context/API.md
 
 **Prerequisites:** Read CLAUDE.md §7. Delegate route file scan to `cavecrew-investigator` (grep for HTTP method decorators/handlers).
 
@@ -214,7 +215,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 ---
 
-## DATA_MODEL.md
+## context/DATA_MODEL.md
 
 **Prerequisites:** Delegate schema scan to `cavecrew-investigator` (read `schema.prisma`, `*.sql`, migration files, model files).
 
@@ -228,7 +229,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 ---
 
-## DESIGN.md
+## context/DESIGN.md
 
 **Prerequisites:** Read CLAUDE.md §8. Delegate token scan to `cavecrew-investigator` (CSS variables, Tailwind config, design token files).
 
@@ -243,7 +244,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 ---
 
-## DECISIONS.md
+## context/DECISIONS.md
 
 **Questions:**
 1. "2-5 most significant architectural decisions?"
@@ -253,7 +254,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 ---
 
-## GOTCHAS.md
+## context/GOTCHAS.md
 
 **Prerequisites:** Read CLAUDE.md §10 (Lessons Learned). Extract pitfall-type entries — those that would cause a silent bug or crash.
 
@@ -268,7 +269,7 @@ Organize by category (Backend, Frontend, Testing, Infrastructure). One entry per
 
 ---
 
-## ENVIRONMENT.md
+## context/ENVIRONMENT.md
 
 **Prerequisites:** Delegate scan to `cavecrew-investigator` (read `.env.example`, `docker-compose.yml`, any `config/*.ts` or `settings.py` that reads `process.env`/`os.environ`).
 
@@ -302,11 +303,11 @@ After all writes, ensure CLAUDE.md §11 lists all created specialized files.
 | File | Status | Lines |
 |------|--------|-------|
 | CLAUDE.md      | ✅ Created | 95 |
-| ARCH.md        | ✅ Created | 60 |
-| FOLDER_ARCH.md | ✅ Created | 45 |
-| API.md         | ⏭️ Skipped | — |
-| GOTCHAS.md     | ✅ Created | 40 |
-| ENVIRONMENT.md | ✅ Created | 25 |
+| context/ARCH.md        | ✅ Created | 60 |
+| context/FOLDER_ARCH.md | ✅ Created | 45 |
+| context/API.md         | ⏭️ Skipped | — |
+| context/GOTCHAS.md     | ✅ Created | 40 |
+| context/ENVIRONMENT.md | ✅ Created | 25 |
 
 Run `/context-generator --update` anytime to refresh gaps.
 ```
@@ -317,9 +318,9 @@ Run `/context-generator --update` anytime to refresh gaps.
 
 | Skill / Command | Always reads | Also reads (when relevant) |
 |-----------------|-------------|---------------------------|
-| `/implement` | CLAUDE.md, GOTCHAS.md | ARCH.md (arch/sessions), API.md (routes), DATA_MODEL.md (DB), DESIGN.md (UI), DECISIONS.md (design choices) |
-| `/plan` | CLAUDE.md | API.md, DATA_MODEL.md, DECISIONS.md, FOLDER_ARCH.md |
-| `/test-generator` | CLAUDE.md, TESTING-POLICY.md | DATA_MODEL.md (DB tests) |
+| `/implement` | CLAUDE.md, context/GOTCHAS.md | context/ARCH.md (arch/sessions), context/API.md (routes), context/DATA_MODEL.md (DB), context/DESIGN.md (UI), context/DECISIONS.md (design choices) |
+| `/plan` | CLAUDE.md | context/API.md, context/DATA_MODEL.md, context/DECISIONS.md, context/FOLDER_ARCH.md |
+| `/test-generator` | CLAUDE.md, context/TESTING-POLICY.md | context/DATA_MODEL.md (DB tests) |
 | `/test-runner` | CLAUDE.md | — |
-| `/security-checker` | CLAUDE.md | DECISIONS.md (auth model) |
-| `@committer` | CLAUDE.md | API.md, DATA_MODEL.md, FOLDER_ARCH.md (context doc check) |
+| `/security-checker` | CLAUDE.md | context/DECISIONS.md (auth model) |
+| `@committer` | CLAUDE.md | context/API.md, context/DATA_MODEL.md, context/FOLDER_ARCH.md (context doc check) |

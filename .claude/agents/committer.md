@@ -119,12 +119,12 @@ Scan changed files. If any match → verify corresponding doc is updated:
 
 | Changed files contain... | Check |
 |--------------------------|-------|
-| `routes/` | `API.md` reflects the change |
-| `schema.sql` | `DATA_MODEL.md` reflects the change |
-| new directory or moved file | `FOLDER_ARCH.md` still accurate |
-| new layer or data flow change | `ARCH.md` still accurate |
-| `DESIGN.md` token change | `DESIGN.md` updated |
-| non-obvious gotcha or pattern | `GOTCHAS.md` updated |
+| `routes/` | `context/API.md` reflects the change |
+| `schema.sql` | `context/DATA_MODEL.md` reflects the change |
+| new directory or moved file | `context/FOLDER_ARCH.md` still accurate |
+| new layer or data flow change | `context/ARCH.md` still accurate |
+| `context/DESIGN.md` token change | `context/DESIGN.md` updated |
+| non-obvious gotcha or pattern | `context/GOTCHAS.md` updated |
 
 If any doc is stale: update it inline before proceeding. Skip entirely if no structural change detected.
 

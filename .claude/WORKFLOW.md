@@ -72,7 +72,7 @@ Default: rodar **só os arquivos novos/modificados** — nunca a suite inteira
 sem motivo. Suite completa fica para o gate final do `@committer` ou pedido
 explícito de regressão. Testes **não rodam no CI** (CI só publica MkDocs) —
 rode local antes do PR. Triagem completa do que testar vs não testar:
-`TESTING-POLICY.md` (raiz do repo).
+`context/TESTING-POLICY.md`.
 
 ## Quando chamar `/lessons-writer`
 

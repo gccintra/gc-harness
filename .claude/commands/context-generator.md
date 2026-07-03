@@ -10,14 +10,14 @@ Lê as instruções em `.claude/agents/context-generator.md` e executa o workflo
 - `--map` — mostra status de todos os arquivos (não cria nada)
 - `--all` — CLAUDE.md + todos os arquivos relevantes para o stack
 - `--core` — apenas CLAUDE.md
-- `--arch` — apenas ARCH.md
-- `--folder` — apenas FOLDER_ARCH.md
-- `--api` — apenas API.md
-- `--data` — apenas DATA_MODEL.md
-- `--design` — apenas DESIGN.md
-- `--decisions` — apenas DECISIONS.md
-- `--gotchas` — apenas GOTCHAS.md
-- `--env` — apenas ENVIRONMENT.md
+- `--arch` — apenas context/ARCH.md
+- `--folder` — apenas context/FOLDER_ARCH.md
+- `--api` — apenas context/API.md
+- `--data` — apenas context/DATA_MODEL.md
+- `--design` — apenas context/DESIGN.md
+- `--decisions` — apenas context/DECISIONS.md
+- `--gotchas` — apenas context/GOTCHAS.md
+- `--env` — apenas context/ENVIRONMENT.md
 - `--update` — atualiza gaps nos arquivos existentes
 - `--quick` — auto-detect, perguntas mínimas, aprovação única
 
