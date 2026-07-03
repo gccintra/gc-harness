@@ -65,12 +65,8 @@ Before running `git add`, `git commit`, `git push`, `git branch`, `gh pr create`
 
 **NEVER execute git commands without this explicit confirmation. NO exceptions.**
 
-### PARALLELIZATION MANDATE
-**You MUST use the Task tool to spawn subagents whenever operations can run in parallel.** Examples:
-- Read the task file and check git status simultaneously in separate subagents
-- Review changed files in parallel before committing
-- Verify test logs while checking branch status
-- Never run independent context-gathering operations sequentially if they can be parallelized
+### Parallelization — Selective
+Do NOT use the Task tool for context gathering. `git status`, `git diff`, reading the task file, and checking logs are all sub-second local operations — spawning a subagent for any of them costs more tokens (cold start + context re-acquisition) than the operation itself. Run them inline, sequentially.
 
 ### Prerequisites Check
 Before proceeding, verify:
@@ -79,7 +75,7 @@ Before proceeding, verify:
 3. If Status is NOT `READY_TO_COMMIT`, **STOP** and inform the user:
    ```
    Cannot commit: task status is <current-status>, not READY_TO_COMMIT.
-   The task must pass through executor → tester → inline review (by orchestrator) before committing.
+   The task must be implemented, tested, and reviewed before committing.
    ```
 4. **Mode B (no task file):** Skip status check. Proceed directly to Step 1. Still follow ALL rules (branch, layer split, commit plan, approval).
 
@@ -116,6 +112,21 @@ After gathering the file list, classify each file into one of four layers:
 - Check `### Tasks` section — confirm all checkboxes are `[x]`
 - Check `## Evidence` section for test results and coverage
 - Ensure no uncommitted sensitive files (.env, credentials, etc.)
+
+### Step 2.5: Context doc check (pre-PR safety net)
+
+Scan changed files. If any match → verify corresponding doc is updated:
+
+| Changed files contain... | Check |
+|--------------------------|-------|
+| `routes/` | `API.md` reflects the change |
+| `schema.sql` | `DATA_MODEL.md` reflects the change |
+| new directory or moved file | `FOLDER_ARCH.md` still accurate |
+| new layer or data flow change | `ARCH.md` still accurate |
+| `DESIGN.md` token change | `DESIGN.md` updated |
+| non-obvious gotcha or pattern | `GOTCHAS.md` updated |
+
+If any doc is stale: update it inline before proceeding. Skip entirely if no structural change detected.
 
 ### Step 3: Draft Commit Plan
 Based on the file classification from Step 1, draft a Commit Plan:

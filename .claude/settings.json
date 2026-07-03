@@ -28,6 +28,6 @@
     ]
   },
   "enabledPlugins": {
-    "context-engineering@context-engineering-marketplace": true
+    "context-engineering@context-engineering-marketplace": false
   }
 }

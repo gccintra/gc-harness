@@ -64,56 +64,20 @@ Crie o arquivo HTML seguindo OBRIGATORIAMENTE estas regras de qualidade:
 #### Regras de HTML/CSS obrigatórias
 
 **1. CSS Custom Properties (design tokens)**
+
+Declare tokens as CSS variables in `:root` — but the **values come from the real design system gathered upstream** (`get_variable_defs` on the Figma file + the project's in-code token source, if any), NOT from placeholder values invented here. Mirror the token names/scale that already exist (colors, typography, spacing/4px grid, radii, shadows, transitions):
+
 ```css
 :root {
-  /* Cores */
-  --color-bg: #fff;
-  --color-surface: #f8f8f8;
-  --color-border: #e5e5e5;
-  --color-text-primary: #111;
-  --color-text-secondary: #666;
-  --color-accent: #000;
-  --color-accent-hover: #333;
-
-  /* Tipografia */
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --text-xs: 0.75rem;    /* 12px */
-  --text-sm: 0.875rem;   /* 14px */
-  --text-base: 1rem;     /* 16px */
-  --text-lg: 1.125rem;   /* 18px */
-  --text-xl: 1.25rem;    /* 20px */
-  --text-2xl: 1.5rem;    /* 24px */
-  --text-3xl: 1.875rem;  /* 30px */
-  --text-4xl: 2.25rem;   /* 36px */
-
-  /* Espaçamento (4px base grid) */
-  --space-1: 0.25rem;   /* 4px  */
-  --space-2: 0.5rem;    /* 8px  */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px */
-  --space-5: 1.25rem;   /* 20px */
-  --space-6: 1.5rem;    /* 24px */
-  --space-8: 2rem;      /* 32px */
-  --space-10: 2.5rem;   /* 40px */
-  --space-12: 3rem;     /* 48px */
-  --space-16: 4rem;     /* 64px */
-
-  /* Bordas */
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-  --radius-full: 9999px;
-
-  /* Sombras */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 8px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.10);
-
-  /* Transições */
-  --transition: 150ms ease;
+  --color-bg: <from design system>;
+  --color-text-primary: <from design system>;
+  --color-accent: <from design system>;
+  --font-sans: <from design system>;
+  /* + typography scale, spacing (4px grid), radii, shadows — all from the system */
 }
 ```
+
+Hardcoding eyeballed hex/spacing is a bug. If no token source exists for a value, ask before inventing one.
 
 **2. Auto Layout via Flexbox/Grid (equivalente ao Auto Layout do Figma)**
 

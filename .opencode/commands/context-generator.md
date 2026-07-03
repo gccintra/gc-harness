@@ -1,5 +1,6 @@
 ---
 description: Single entry point for all project context. Creates/updates CLAUDE.md and all specialized context files. Re-invocable — detects existing files and fills only gaps.
+agent: context-generator
 ---
 
 Lê as instruções em `.claude/agents/context-generator.md` e executa o workflow de geração de contexto.
