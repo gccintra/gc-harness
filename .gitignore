@@ -5,6 +5,11 @@ Thumbs.db
 # Dependencies
 node_modules/
 
+# OpenCode gera esses ao rodar — não versionar
+runtime/opencode/package.json
+runtime/opencode/package-lock.json
+runtime/opencode/bun.lock
+
 # Environment
 .env
 .env.*
