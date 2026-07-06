@@ -14,8 +14,6 @@ git submodule add https://github.com/gccintra/gc-harness.git .agents
 O instalador cria somente links de integração:
 
 ```text
-AGENTS.md   -> .agents/AGENTS.md
-CLAUDE.md   -> .agents/AGENTS.md
 .claude     -> .agents/runtime/claude
 .codex      -> .agents/runtime/codex
 .opencode   -> .agents/runtime/opencode
@@ -26,6 +24,11 @@ As skills vivem fisicamente **apenas** em `.agents/skills`. Cada runtime
 (`runtime/claude`, `runtime/codex`, `runtime/opencode`) acessa as mesmas skills
 pelo link `skills -> ../../skills`. Edita em um lugar, vale para as três
 ferramentas.
+
+O harness **não** carrega regras de comportamento (`CLAUDE.md` / `AGENTS.md`) —
+essas são **por projeto**. Cada consumidor cria o próprio `CLAUDE.md` (Claude Code)
+e/ou `AGENTS.md` (Codex, OpenCode) na raiz, com contexto do código + as regras que
+quiser. O `opencode.json` já lê `../AGENTS.md` do consumidor quando existir.
 
 ## Atualização
 
@@ -52,7 +55,6 @@ para divergir sem sujar o harness compartilhado:
 
 ```text
 gc-harness/
-├── AGENTS.md              regras compartilhadas (Codex lê nativo; = CLAUDE.md do consumidor)
 ├── WORKFLOW.md            guia humano do fluxo de trabalho
 ├── install.sh
 ├── skills/                FONTE ÚNICA das skills (SKILL.md tool-agnostic)
