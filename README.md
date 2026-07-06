@@ -62,7 +62,7 @@ gc-harness/
 └── runtime/
     ├── claude/            settings.json · mcp.json · agents/ · commands/ · skills→../../skills
     ├── codex/             config.toml · skills→../../skills
-    └── opencode/          opencode.json · tui.json · agents/ · commands/ · skills→../../skills
+    └── opencode/          opencode.json · tui.json · agents/ · skills→../../skills
 ```
 
 `agents/` e `commands/` são físicos por ferramenta (o frontmatter difere entre
