@@ -41,7 +41,7 @@ Goal: understand what files need to change, what already exists, what to avoid.
 
 ### Step 4: Create task file
 
-Create `.claude/work/tasks/task-<slug>.md`:
+Create `.specs/tasks/task-<slug>.md`:
 
 ```markdown
 # Task: <title>
@@ -92,7 +92,7 @@ NÃO rodar: suite completa
 
 Present the task file content and ask:
 
-> "Plano criado em `.claude/work/tasks/task-<slug>.md`. Algum ajuste antes de implementar?"
+> "Plano criado em `.specs/tasks/task-<slug>.md`. Algum ajuste antes de implementar?"
 
 Do NOT implement. Do NOT write any code. Wait for explicit approval.
 
@@ -102,7 +102,7 @@ Do NOT implement. Do NOT write any code. Wait for explicit approval.
 ```
 ## Plano criado
 
-Arquivo: .claude/work/tasks/task-<slug>.md
+Arquivo: .specs/tasks/task-<slug>.md
 
 Resumo:
 - API changes: <N endpoints>

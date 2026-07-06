@@ -23,7 +23,7 @@ Do NOT read the whole repo.
 
 ### Step 1: Determine input
 
-**With task file** (`.claude/work/tasks/<id>.md`):
+**With task file** (`.specs/tasks/<id>.md`):
 Extract: problem, AC, API changes, DB changes, files to modify, test scope.
 Update status: `PLANNING → IN_PROGRESS`
 
@@ -126,7 +126,7 @@ Security: PASSED / N/A
 Review: APPROVED
 Status: READY_TO_COMMIT
 
-Next: /test-runner → @committer .claude/work/tasks/task-<slug>.md
+Next: /test-runner → @committer .specs/tasks/task-<slug>.md
 ```
 
 

@@ -18,7 +18,7 @@ output não deve poluir o contexto.
 ## Fluxo típico de uma feature
 
 ```
-1. /plan <issue ou descrição>   → cria task file em .claude/work/tasks/, PARA p/ aprovação
+1. /plan <issue ou descrição>   → cria task file em .specs/tasks/, PARA p/ aprovação
 2. (aprovado) implementa        → Opus inline, ou /implement <task-file>
 3. /test-runner                 → roda só os arquivos tocados
 4. /code-review                 → review do diff
@@ -61,10 +61,10 @@ Para buscas largas em repo grande dá pra delegar a `cavecrew-investigator`
 
 ## Task file (recomendado para features grandes)
 
-Mora em `.claude/work/tasks/<nome>.md`. É a fonte da verdade de um item de
+Mora em `.specs/tasks/<nome>.md`. É a fonte da verdade de um item de
 trabalho: problema, critérios de aceite, abordagem, arquivos a tocar, escopo
 de teste. Criado pelo `/plan`, lido pelo `@committer`. Docs/specs em
-`.claude/work/docs/`, logs em `.claude/work/logs/`.
+`.specs/docs/`, logs em `.specs/logs/`.
 
 ## Regra de teste
 

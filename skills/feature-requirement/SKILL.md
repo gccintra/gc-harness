@@ -63,7 +63,7 @@ Com isso finalizo o documento.
 ```
 
 ### 3. Gerar o arquivo
-Com as informacoes suficientes, salve em `.claude/work/docs/feature-requirement-<slug>.md` usando o template abaixo. `<slug>` = kebab-case do nome da feature. Para campos sem informacao, use `> _A definir_`.
+Com as informacoes suficientes, salve em `.specs/docs/feature-requirement-<slug>.md` usando o template abaixo. `<slug>` = kebab-case do nome da feature. Para campos sem informacao, use `> _A definir_`.
 
 ---
 
@@ -163,5 +163,5 @@ Com as informacoes suficientes, salve em `.claude/work/docs/feature-requirement-
 - **Fiel ao discutido** — nao "melhore" o escopo sem ser solicitado.
 - **Adapte secoes ao contexto** — se a conversa foi puramente sobre metricas, expanda a secao 10 e reduza as outras.
 - **Tom:** profissional mas direto. Sem jargao tecnico desnecessario.
-- Apos gerar, informe o path completo: `.claude/work/docs/feature-requirement-<slug>.md` e aponte o proximo passo: `/plan <path>`.
+- Apos gerar, informe o path completo: `.specs/docs/feature-requirement-<slug>.md` e aponte o proximo passo: `/plan <path>`.
 - Termine com uma mensagem curta perguntando se quer ajustar algo.

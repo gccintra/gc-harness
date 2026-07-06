@@ -82,7 +82,7 @@ Create minimal spec:
 *Hotfix mode activated at <timestamp>*
 ```
 
-Save to: `.claude/work/tasks/hotfix-<num>.md`
+Save to: `.specs/tasks/hotfix-<num>.md`
 
 ### Step 2: Minimal Investigation
 

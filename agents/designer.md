@@ -28,8 +28,8 @@ You are the bridge between feature documentation and visual design. You do NOT w
 ### When to Invoke
 
 ```
-/designer .claude/work/docs/feature-requirement-notifications.md
-/designer .claude/work/docs/feature-requirement-notifications.md "extra context here"
+/designer .specs/docs/feature-requirement-notifications.md
+/designer .specs/docs/feature-requirement-notifications.md "extra context here"
 /designer "Create a login page with email and Google OAuth"
 ```
 
