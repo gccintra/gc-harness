@@ -1,5 +1,4 @@
 ---
-name: implement
 description: Inline implementation from a task file or description. No agent spawn, no cold start.
 ---
 ## Implement

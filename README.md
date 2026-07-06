@@ -57,39 +57,41 @@ para divergir sem sujar o harness compartilhado:
 gc-harness/
 ├── WORKFLOW.md            guia humano do fluxo de trabalho
 ├── install.sh
-├── skills/                FONTE ÚNICA das skills (SKILL.md tool-agnostic)
-├── agents/                FONTE ÚNICA das personas (frontmatter comum: name/description/mode)
-├── commands/              FONTE ÚNICA dos slash commands (+ commands/templates/)
+├── skills/                FONTE ÚNICA das skills — inclui cx-* (symlinks p/ commands)
+├── agents/                FONTE ÚNICA das personas (name/description/mode)
+├── commands/              FONTE ÚNICA dos slash commands (+ commands/templates/), sem `name`
 ├── context/               referências compartilhadas (ex.: TESTING-POLICY.md)
 └── runtime/
     ├── claude/            settings.json · mcp.json · agents→ · commands→ · skills→
-    ├── codex/             config.toml · agents/ (*.toml gerados da fonte única)
+    ├── codex/             config.toml (MCP)
     └── opencode/          opencode.json · tui.json · agents→ · commands→ · skills→
 ```
 
 **Fonte única + symlink.** `skills/`, `agents/` e `commands/` (com
 `commands/templates/`) moram uma vez na raiz. Claude e OpenCode acessam por
-symlink (`runtime/<tool>/{agents,commands,skills} → ../../…`), com frontmatter
-comum (`name`, `description`, `mode`) — sem `model`, cada ferramenta usa o
-default. O Codex não simlinká agents (formato TOML): `runtime/codex/agents/*.toml`
-é **gerado** da mesma fonte única (`developer_instructions` = corpo do agent).
-Editar a fonte única vale para as três — regenerar os TOML do Codex quando um
-agent mudar.
+symlink (`runtime/<tool>/{agents,commands,skills} → ../../…`). Agents usam
+frontmatter `name/description/mode`; commands **não** têm `name` (o nome vem do
+filename). Sem `model` — cada ferramenta usa o default. Editar a fonte única
+vale para todas.
 
-### Codex — descoberta é diferente
+### Codex — sem script, só symlink
 
-O Codex **não** escaneia `.codex/` como o Claude/OpenCode fazem com skills, e é
-global-first. No harness ele funciona assim:
+O Codex é **global-first** para config/agents (lê de `~/.codex`, não do `.codex`
+do projeto), mas lê **skills por projeto** de `.agents/skills` nativamente. Como
+o submódulo já se chama `.agents`, isso funciona sem symlink extra. Então:
 
-- **Skills:** o Codex lê `.agents/skills/<nome>/SKILL.md` **nativamente** (o
-  submódulo já se chama `.agents`). Invoca com `$skill` ou `/skills`. Não usa
-  symlink em `.codex`.
-- **Agents (personas):** subagents em `.codex/agents/*.toml` (formato TOML,
-  campo `developer_instructions`). Invoca com `/agent` ou pedindo em linguagem
-  natural. Descobertos por projeto via o link `.codex → runtime/codex`.
-- **Prompts (`/prompts:nome`):** **não usados** — são deprecated, globais
-  (`~/.codex/prompts`) e não descobertos por projeto. Comandos/workflows viram
-  skills; personas viram agents.
+- **Workflows** (`plan`, `implement`, `hotfix-mode`): expostos ao Codex como
+  skills **`cx-*`**, onde cada `skills/cx-<nome>/SKILL.md` é um **symlink** para
+  `commands/<nome>.md`. O nome `cx-*` vem do dirname (o command não tem `name`),
+  então não colide com o `/plan` nativo nem com o command do Claude. Invoca com
+  `$cx-plan`. Um source, zero cópia, zero script.
+- **Personas:** vivem só em Claude/OpenCode (agent + command). **Não** há persona
+  no Codex — subagents TOML são global-first, invisíveis no CLI e insustentáveis
+  sem script. Persona é fluxo de Claude/OpenCode.
+- **Prompts (`/prompts:nome`):** não usados (deprecated, globais).
+
+Os `cx-*` aparecem também nas listas de skill do Claude/OpenCode (namespaced,
+inofensivos) — é o custo de manter tudo num dir compartilhado sem script.
 
 ## Conteúdo específico do projeto
 

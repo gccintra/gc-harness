@@ -1,5 +1,4 @@
 ---
-name: plan
 description: Create a spec-driven task file inline. Stops for user approval before any code is written. No agent spawn, no cold start.
 ---
 ## Plan

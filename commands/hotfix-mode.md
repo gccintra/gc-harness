@@ -1,5 +1,4 @@
 ---
-name: hotfix-mode
 description: Expedited workflow for critical production fixes, bypassing normal planning stages while maintaining quality gates.
 ---
 ## Hotfix Mode Skill
