@@ -1,4 +1,5 @@
 ---
+name: context-generator
 description: Single entry point for all project context. Creates/updates CLAUDE.md and all specialized context files. Re-invocable — detects existing files and fills only gaps.
 ---
 

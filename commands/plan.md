@@ -1,4 +1,5 @@
 ---
+name: plan
 description: Create a spec-driven task file inline. Stops for user approval before any code is written. No agent spawn, no cold start.
 ---
 ## Plan
@@ -8,7 +9,6 @@ Create a task file with a concrete spec. Stop for approval. Do not write code.
 ### Input
 `$ARGUMENTS` — issue number, description, or feature name.
 
----
 
 ### Step 1: Understand the request
 
@@ -20,7 +20,6 @@ Extract: title, description, acceptance criteria, labels.
 
 Otherwise use `$ARGUMENTS` as the problem statement directly.
 
----
 
 ### Step 2: Check context docs before investigating code
 
@@ -32,7 +31,6 @@ Read what's relevant to this change:
 
 Do NOT read the whole repo. Only read docs relevant to this change.
 
----
 
 ### Step 3: Minimal code investigation
 
@@ -41,7 +39,6 @@ If scope is unclear, use `cavecrew-investigator` (fork) for a targeted search.
 
 Goal: understand what files need to change, what already exists, what to avoid.
 
----
 
 ### Step 4: Create task file
 
@@ -91,7 +88,6 @@ NÃO rodar: suite completa
 - <any choice that needs user input before implementing>
 ```
 
----
 
 ### Step 5: STOP — present plan and wait
 
@@ -101,7 +97,6 @@ Present the task file content and ask:
 
 Do NOT implement. Do NOT write any code. Wait for explicit approval.
 
----
 
 ### Output
 

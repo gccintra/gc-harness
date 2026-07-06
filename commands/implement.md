@@ -1,11 +1,11 @@
 ---
+name: implement
 description: Inline implementation from a task file or description. No agent spawn, no cold start.
 ---
 ## Implement
 
 Implement inline. Full context already available — no briefing, no cold start.
 
----
 
 ### Step 0: Read context (skip what you already know)
 
@@ -21,7 +21,6 @@ Read only what you need:
 
 Do NOT read the whole repo.
 
----
 
 ### Step 1: Determine input
 
@@ -31,7 +30,6 @@ Update status: `PLANNING → IN_PROGRESS`
 
 **Without task file:** use conversation context. If scope is unclear, ask one question.
 
----
 
 ### Step 2: Triage tests BEFORE writing any code
 
@@ -46,7 +44,6 @@ Update status: `PLANNING → IN_PROGRESS`
 
 Zero tests is valid if all rows are NO.
 
----
 
 ### Step 3: Implement
 
@@ -56,13 +53,11 @@ Gotchas already loaded from context/GOTCHAS.md in Step 0 — apply them.
 
 **Figma:** if task has Figma URL → `figma_get_design_context` → `/figma-implement-design`
 
----
 
 ### Step 4: Write tests (MUST-test items only from Step 2)
 
 `/test-generator` for each YES row. Test behavior, not implementation.
 
----
 
 ### Step 5: Security spot-check
 
@@ -70,7 +65,6 @@ Only for changes touching: auth, file I/O, user input, JWT, paths, secrets.
 
 `/security-checker --files <changed-files>`
 
----
 
 ### Step 6: Self-verify
 
@@ -79,7 +73,6 @@ Only for changes touching: auth, file I/O, user input, JWT, paths, secrets.
 - [ ] No console.log / debug code
 - [ ] Diff is minimal — no unrelated changes
 
----
 
 ### Step 7: Inline code review
 
@@ -100,7 +93,6 @@ Scan and check:
 **Issue found:** fix (Step 3) → re-run diff → re-check.
 **Clean:** update task file → `READY_TO_COMMIT`.
 
----
 
 ### Step 8: Update context docs
 
@@ -116,7 +108,6 @@ Scan and check:
 
 Nothing structural → skip.
 
----
 
 ### Step 9: Report
 
@@ -139,7 +130,6 @@ Status: READY_TO_COMMIT
 Next: /test-runner → @committer .claude/work/tasks/task-<slug>.md
 ```
 
----
 
 ### Fix pass (after /test-runner failures)
 

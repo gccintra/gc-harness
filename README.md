@@ -58,15 +58,23 @@ gc-harness/
 ├── WORKFLOW.md            guia humano do fluxo de trabalho
 ├── install.sh
 ├── skills/                FONTE ÚNICA das skills (SKILL.md tool-agnostic)
+├── agents/                FONTE ÚNICA das personas (frontmatter comum: name/description/mode)
+├── commands/              FONTE ÚNICA dos slash commands (+ commands/templates/)
 ├── context/               referências compartilhadas (ex.: TESTING-POLICY.md)
 └── runtime/
-    ├── claude/            settings.json · mcp.json · agents/ · commands/ · skills→../../skills
-    ├── codex/             config.toml · agents/ (*.toml)
-    └── opencode/          opencode.json · tui.json · agents/ · skills→../../skills
+    ├── claude/            settings.json · mcp.json · agents→ · commands→ · skills→
+    ├── codex/             config.toml · agents/ (*.toml gerados da fonte única)
+    └── opencode/          opencode.json · tui.json · agents→ · commands→ · skills→
 ```
 
-`agents/` e `commands/` são físicos por ferramenta (o formato difere entre as
-três); só as `skills/` são compartilhadas por link.
+**Fonte única + symlink.** `skills/`, `agents/` e `commands/` (com
+`commands/templates/`) moram uma vez na raiz. Claude e OpenCode acessam por
+symlink (`runtime/<tool>/{agents,commands,skills} → ../../…`), com frontmatter
+comum (`name`, `description`, `mode`) — sem `model`, cada ferramenta usa o
+default. O Codex não simlinká agents (formato TOML): `runtime/codex/agents/*.toml`
+é **gerado** da mesma fonte única (`developer_instructions` = corpo do agent).
+Editar a fonte única vale para as três — regenerar os TOML do Codex quando um
+agent mudar.
 
 ### Codex — descoberta é diferente
 

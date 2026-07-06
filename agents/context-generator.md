@@ -1,7 +1,7 @@
 ---
+name: context-generator
 description: Single entry point for all project context documentation. Creates and updates CLAUDE.md and all specialized context files. Re-invocable — detects existing files and updates only gaps.
 mode: all
-model: anthropic/claude-sonnet-4-5
 ---
 
 ## Context Generator Agent
@@ -12,7 +12,6 @@ Creates and maintains all context files. Re-invocable — detects what exists, f
 
 Templates for all files are in `.claude/commands/templates/`. Read the relevant template only when generating that file.
 
----
 
 ### Files Managed
 
@@ -28,7 +27,6 @@ Templates for all files are in `.claude/commands/templates/`. Read the relevant 
 | `context/GOTCHAS.md` | `templates/gotchas-md.md` | Project-specific pitfalls — quick scan before implementing | `/implement` (Step 0, always) |
 | `context/ENVIRONMENT.md` | `templates/environment-md.md` | All environment variables with defaults | `/implement`, `/plan` |
 
----
 
 ### Flags
 
@@ -49,7 +47,6 @@ Templates for all files are in `.claude/commands/templates/`. Read the relevant 
 /context-generator --quick      # auto-detect, minimal questions, single approval
 ```
 
----
 
 ### Hard Rules
 
@@ -61,7 +58,6 @@ Templates for all files are in `.claude/commands/templates/`. Read the relevant 
 6. **DATE EVERY FILE** — Always set `Last Updated` to today.
 7. **BROAD SCAN VIA INVESTIGATOR** — For broad repo scans (route files, schema files, config sweeps), delegate to `cavecrew-investigator` — ask it to return a compact `file:line` + extracted-value map. Consume the map, don't load all source files yourself. NARROW reads (a single known file) inline.
 
----
 
 ## Workflow
 
@@ -109,7 +105,6 @@ Generate in order: CLAUDE.md → context/ARCH.md → context/FOLDER_ARCH.md → 
 
 **If `--map`:** print status table and STOP.
 
----
 
 ## CLAUDE.md — Core Context (§1-§10)
 
@@ -171,7 +166,6 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 **Template:** Read `.claude/commands/templates/claude-md.md` and fill all `[placeholders]`.
 
----
 
 ## context/ARCH.md
 
@@ -186,7 +180,6 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 **Template:** Read `.claude/commands/templates/arch-md.md` and fill all `[placeholders]`.
 
----
 
 ## context/FOLDER_ARCH.md
 
@@ -199,7 +192,6 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 **Template:** Read `.claude/commands/templates/folder-arch-md.md` and fill all `[placeholders]`.
 
----
 
 ## context/API.md
 
@@ -213,7 +205,6 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 **Template:** Read `.claude/commands/templates/api-md.md` and fill all `[placeholders]`.
 
----
 
 ## context/DATA_MODEL.md
 
@@ -227,7 +218,6 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 **Template:** Read `.claude/commands/templates/data-model-md.md` and fill all `[placeholders]`.
 
----
 
 ## context/DESIGN.md
 
@@ -242,7 +232,6 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 **Template:** Read `.claude/commands/templates/design-md.md` and fill all `[placeholders]`.
 
----
 
 ## context/DECISIONS.md
 
@@ -252,7 +241,6 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 **Template:** Read `.claude/commands/templates/decisions-md.md` and fill all `[placeholders]`.
 
----
 
 ## context/GOTCHAS.md
 
@@ -267,7 +255,6 @@ Organize by category (Backend, Frontend, Testing, Infrastructure). One entry per
 
 **Template:** Read `.claude/commands/templates/gotchas-md.md` and fill all `[placeholders]`.
 
----
 
 ## context/ENVIRONMENT.md
 
@@ -281,7 +268,6 @@ Organize by category (Backend, Frontend, Testing, Infrastructure). One entry per
 
 **Template:** Read `.claude/commands/templates/environment-md.md` and fill all `[placeholders]`.
 
----
 
 ## Step 4: Write + Confirm
 
@@ -292,7 +278,6 @@ For each file:
 
 After all writes, ensure CLAUDE.md §11 lists all created specialized files.
 
----
 
 ## Output Format
 
@@ -312,7 +297,6 @@ After all writes, ensure CLAUDE.md §11 lists all created specialized files.
 Run `/context-generator --update` anytime to refresh gaps.
 ```
 
----
 
 ## What reads what (lean harness)
 
