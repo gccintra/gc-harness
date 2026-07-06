@@ -61,12 +61,27 @@ gc-harness/
 ├── context/               referências compartilhadas (ex.: TESTING-POLICY.md)
 └── runtime/
     ├── claude/            settings.json · mcp.json · agents/ · commands/ · skills→../../skills
-    ├── codex/             config.toml · skills→../../skills
+    ├── codex/             config.toml · agents/ (*.toml)
     └── opencode/          opencode.json · tui.json · agents/ · skills→../../skills
 ```
 
-`agents/` e `commands/` são físicos por ferramenta (o frontmatter difere entre
-Claude e OpenCode); só as `skills/` são compartilhadas por link.
+`agents/` e `commands/` são físicos por ferramenta (o formato difere entre as
+três); só as `skills/` são compartilhadas por link.
+
+### Codex — descoberta é diferente
+
+O Codex **não** escaneia `.codex/` como o Claude/OpenCode fazem com skills, e é
+global-first. No harness ele funciona assim:
+
+- **Skills:** o Codex lê `.agents/skills/<nome>/SKILL.md` **nativamente** (o
+  submódulo já se chama `.agents`). Invoca com `$skill` ou `/skills`. Não usa
+  symlink em `.codex`.
+- **Agents (personas):** subagents em `.codex/agents/*.toml` (formato TOML,
+  campo `developer_instructions`). Invoca com `/agent` ou pedindo em linguagem
+  natural. Descobertos por projeto via o link `.codex → runtime/codex`.
+- **Prompts (`/prompts:nome`):** **não usados** — são deprecated, globais
+  (`~/.codex/prompts`) e não descobertos por projeto. Comandos/workflows viram
+  skills; personas viram agents.
 
 ## Conteúdo específico do projeto
 
