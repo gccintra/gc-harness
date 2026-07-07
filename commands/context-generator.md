@@ -18,6 +18,7 @@ Lê as instruções em `.claude/agents/context-generator.md` e executa o workflo
 - `--decisions` — apenas context/DECISIONS.md
 - `--gotchas` — apenas context/GOTCHAS.md
 - `--env` — apenas context/ENVIRONMENT.md
+- `--testing` — apenas context/TESTING-POLICY.md
 - `--update` — atualiza gaps nos arquivos existentes
 - `--quick` — auto-detect, perguntas mínimas, aprovação única
 
