@@ -20,38 +20,15 @@ Fast-track workflow for urgent production issues that require immediate attentio
 
 ### Hotfix Workflow
 
+Pula o `/plan` (sem task file completo, sem aprovação de plano). **Não** pula o
+`@committer` — commit, push e PR continuam sendo dele, com aprovação explícita.
+
 ```
-┌─────────────────────────────────────────────────────┐
-│  HOTFIX TRIGGERED                                   │
-│  Skip: Orchestrator, Planners                       │
-│  Go directly to: Executor                           │
-└───────────────────────────┬─────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────┐
-│  EXECUTOR (Direct)                                  │
-│  1. Read issue/problem description                  │
-│  2. Identify root cause (minimal investigation)     │
-│  3. Implement minimal fix                           │
-│  4. Create regression test                          │
-│  5. Run security-checker (abbreviated)              │
-└───────────────────────────┬─────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────┐
-│  TESTER (Fast Track)                                │
-│  1. Run affected test suite only                    │
-│  2. Run regression test for fix                     │
-│  3. Smoke test critical paths                       │
-└───────────────────────────┬─────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────┐
-│  COMMITTER (Immediate)                              │
-│  Branch: hotfix/issue-<num>-<desc>                  │
-│  Commit: fix!: <description>                        │
-│  PR: Marked as HOTFIX, priority review              │
-└─────────────────────────────────────────────────────┘
+1. Spec mínima      → .specs/tasks/hotfix-<num>.md (Steps 1-2)
+2. Fix inline       → mudança mínima + teste de regressão (Steps 3-4)
+3. Gate abreviado   → /security-checker escopado + testes dos arquivos tocados (Steps 5-6)
+4. @committer       → branch hotfix/, commit fix!:, PR (Step 7)
+                      gate de suite completa: WAIVED — o usuário autoriza na hora
 ```
 
 ### Step 1: Acknowledge Hotfix
@@ -135,14 +112,30 @@ Run only:
 
 Use test commands from CLAUDE.md §2, scoped to changed files. No full suite.
 
-### Step 7: Hotfix Commit
+### Step 7: Commit + PR — hand off to `@committer`
 
-Branch naming:
+**You do NOT run `git commit`, `git push` or `gh pr create` yourself.** Urgência não
+suspende o write-gate: commit/push/PR são do `@committer`, com plano de commit e
+aprovação explícita (`CLAUDE.md` §2 e §4). Ele só é mais rápido aqui porque o gate de
+suite completa é dispensado.
+
+Set the task status to `READY_TO_COMMIT`, then invoke:
+
 ```
-hotfix/issue-<num>-<short-desc>
+@committer .specs/tasks/hotfix-<num>.md
 ```
 
-Commit format:
+Tell `@committer` this is a hotfix, so it applies:
+
+| Item | Hotfix |
+|------|--------|
+| Branch | `hotfix/issue-<num>-<short-desc>` |
+| Commit | `fix!: <description>` — pode ser **um só** commit (fix + teste de regressão) |
+| Step 2.4 (suite completa) | **WAIVED** — o usuário autoriza explicitamente; registrar o waiver na PR |
+| Testes que rodaram | os escopados do Step 6 + o teste de regressão |
+| PR | título `HOTFIX: <description>`, label `hotfix,priority-critical`, reviewer do on-call |
+
+Commit body para o `@committer` usar:
 ```
 fix!: <description>
 
@@ -155,33 +148,22 @@ Impact: <users affected>
 Closes #<num>
 ```
 
-### Step 8: Expedited PR
-
-```bash
-gh pr create \
-  --title "HOTFIX: <description>" \
-  --body "## 🚨 HOTFIX
-
-**Production Issue:** #<num>
+PR body — o template do `@committer` Step 6, na variante bug-fix, mais:
+```markdown
+## 🚨 HOTFIX
 **Severity:** Critical
 **Impact:** <description>
-
-## Fix
-<description of fix>
 
 ## Testing
 - [x] Regression test added
 - [x] Affected tests pass
-- [x] Smoke tests pass
+- [ ] Full suite — **WAIVED** (hotfix, autorizado pelo usuário)
 
 ## Rollback
-If issues occur:
 1. <rollback step 1>
 2. <rollback step 2>
 
-**Requires immediate review and merge.**" \
-  --label "hotfix,priority-critical" \
-  --reviewer "@team/oncall"
+**Requires immediate review and merge.**
 ```
 
 ### Post-Hotfix Actions
