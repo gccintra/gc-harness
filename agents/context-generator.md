@@ -10,7 +10,7 @@ Creates and maintains all context files. Re-invocable — detects what exists, f
 
 **You do NOT implement code. You analyze, ask, and write documentation.**
 
-Templates for all files are in `.claude/commands/templates/`. Read the relevant template only when generating that file.
+Templates for all files are in `.agents/commands/templates/`. Read the relevant template only when generating that file.
 
 
 ### Files Managed
@@ -169,7 +169,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 **§10:** "Known pre-existing test failures that should NOT be re-investigated?"
 
-**Template:** Read `.claude/commands/templates/claude-md.md` and fill all `[placeholders]`.
+**Template:** Read `.agents/commands/templates/claude-md.md` and fill all `[placeholders]`.
 
 
 ## context/ARCH.md
@@ -183,7 +183,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 4. "Any boot sequence or initialization order that matters?"
 5. "Auth model — where is it enforced?"
 
-**Template:** Read `.claude/commands/templates/arch-md.md` and fill all `[placeholders]`.
+**Template:** Read `.agents/commands/templates/arch-md.md` and fill all `[placeholders]`.
 
 
 ## context/FOLDER_ARCH.md
@@ -195,7 +195,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 2. "What's the convention for adding a new route/endpoint? New component? New page?"
 3. "Any folders that are NOT obvious from the name?"
 
-**Template:** Read `.claude/commands/templates/folder-arch-md.md` and fill all `[placeholders]`.
+**Template:** Read `.agents/commands/templates/folder-arch-md.md` and fill all `[placeholders]`.
 
 
 ## context/API.md
@@ -208,7 +208,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 3. "Any endpoints NOT requiring auth?"
 4. "Pagination convention? (offset / cursor / N/A)"
 
-**Template:** Read `.claude/commands/templates/api-md.md` and fill all `[placeholders]`.
+**Template:** Read `.agents/commands/templates/api-md.md` and fill all `[placeholders]`.
 
 
 ## context/DATA_MODEL.md
@@ -221,7 +221,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 3. "Multi-tenancy? (tenant_id / separate schemas / none)"
 4. Confirm entities extracted by investigator — ask about gaps only.
 
-**Template:** Read `.claude/commands/templates/data-model-md.md` and fill all `[placeholders]`.
+**Template:** Read `.agents/commands/templates/data-model-md.md` and fill all `[placeholders]`.
 
 
 ## context/DESIGN.md
@@ -235,7 +235,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 4. "Base spacing unit? (4px / 8px)"
 5. "Breakpoints?"
 
-**Template:** Read `.claude/commands/templates/design-md.md` and fill all `[placeholders]`.
+**Template:** Read `.agents/commands/templates/design-md.md` and fill all `[placeholders]`.
 
 
 ## context/DECISIONS.md
@@ -244,7 +244,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 1. "2-5 most significant architectural decisions?"
 2. For each: "Why chosen? Alternatives considered? Consequence of the choice?"
 
-**Template:** Read `.claude/commands/templates/decisions-md.md` and fill all `[placeholders]`.
+**Template:** Read `.agents/commands/templates/decisions-md.md` and fill all `[placeholders]`.
 
 
 ## context/GOTCHAS.md
@@ -258,7 +258,7 @@ Delegate to `cavecrew-investigator` — return compact `file:line` + extracted v
 
 Organize by category (Backend, Frontend, Testing, Infrastructure). One entry per gotcha with BROKEN/CORRECT code example where applicable.
 
-**Template:** Read `.claude/commands/templates/gotchas-md.md` and fill all `[placeholders]`.
+**Template:** Read `.agents/commands/templates/gotchas-md.md` and fill all `[placeholders]`.
 
 
 ## context/ENVIRONMENT.md
@@ -271,7 +271,7 @@ Organize by category (Backend, Frontend, Testing, Infrastructure). One entry per
 3. "Any vars that are set at runtime by the app itself (not by the user)?"
 4. "Any test-specific env setup needed?"
 
-**Template:** Read `.claude/commands/templates/environment-md.md` and fill all `[placeholders]`.
+**Template:** Read `.agents/commands/templates/environment-md.md` and fill all `[placeholders]`.
 
 
 ## context/TESTING-POLICY.md
@@ -296,7 +296,7 @@ categories, the triage gate, or the coverage stance. Only fill the project-speci
 3. "Any branchy/security-sensitive functions that MUST have unit tests? (parsers, calculations, auth, path sanitization)"
 4. "Coverage threshold, if any? (or 'signal only, no gate')"
 
-**Template:** Read `.claude/commands/templates/testing-policy-md.md` and fill all `[placeholders]`. Leave the fixed framework verbatim.
+**Template:** Read `.agents/commands/templates/testing-policy-md.md` and fill all `[placeholders]`. Leave the fixed framework verbatim.
 
 
 ## Step 4: Write + Confirm
