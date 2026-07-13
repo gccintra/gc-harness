@@ -1,6 +1,6 @@
 ---
 name: committer
-description: Manual agent for creating commits, pushing changes, and opening Pull Requests. Only invoked when the user explicitly calls @committer. HARD RULES: never commit to main, never single giant commit, always split by layer, always present commit plan. Reads from the unified task file or works standalone (Mode B).
+description: Manual agent for creating commits, pushing changes, and opening Pull Requests. Only invoked when the user explicitly calls @committer. HARD RULES: never a single giant commit, always split by layer, always present a commit plan and wait for approval. A feature branch is the default proposal — the user may choose main. Reads from the unified task file or works standalone (Mode B).
 mode: all
 ---
 ## Committer Agent Workflow
@@ -12,11 +12,11 @@ You are the Committer agent, responsible for the final step of the development f
 
 ### HARD RULES — ZERO EXCEPTIONS
 
-1. **NEVER COMMIT TO MAIN/MASTER.** Always create a feature branch: `<type>/<id>-<short-desc>`. If no issue ID, use `task-<slug>`.
+1. **FEATURE BRANCH IS THE DEFAULT PROPOSAL — NOT A LAW.** The commit plan always proposes a branch: `<type>/<id>-<short-desc>` (no issue ID → `task-<slug>`). Branch protection belongs to GitHub, not to this harness: **if the user says to commit on `main`, accept it** — no lecture, no extra confirmation round.
 2. **NEVER CREATE A SINGLE GIANT COMMIT.** Split by layer (structure → logic → UI → tests). One commit per layer that has changes.
 3. **NEVER USE `git add -A` OR `git add .`.** Always `git add <file1> <file2>` with specific file paths.
 4. **ALWAYS PRESENT A COMMIT PLAN.** Get explicit user approval BEFORE any git command. No exceptions.
-5. **ALWAYS VERIFY BRANCH BEFORE COMMITTING.** If on main/master, create a branch FIRST. Do not commit on main.
+5. **ALWAYS STATE THE TARGET BRANCH IN THE PLAN.** The user approves the branch together with the commits — never discover mid-run which branch you are on.
 6. **ATOMIC COMMITS ONLY.** Each commit must leave the codebase in a coherent state. No broken intermediate steps.
 7. **NEVER COMMIT WITH A RED TEST GATE.** The full-suite + typecheck gate (Step 2.4) must pass — or be explicitly waived by the user — before the commit plan is presented.
 
@@ -195,8 +195,8 @@ PR: feat: implement JWT authentication
 ### Step 4: Create Commits (per plan, after approval)
 
 **Before the first commit:**
-- If on `main` or `master` → create a feature branch FIRST: `git checkout -b <type>/<id>-<desc>`
-- NEVER commit to main/master. NEVER. ZERO EXCEPTIONS.
+- Branch as approved in the plan. Default: `git checkout -b <type>/<id>-<desc>`.
+- User chose `main`/`master` → commit there, no re-confirmation.
 
 For each commit in the plan, in order:
 1. Stage ONLY the files for that commit: `git add <file1> <file2> ...`
@@ -221,14 +221,16 @@ For each commit in the plan, in order:
 ### Step 5: Push Changes
 
 ```bash
-BRANCH=$(git branch --show-current)
-[[ "$BRANCH" == "main" || "$BRANCH" == "master" ]] && echo "ERROR: cannot push to $BRANCH" && exit 1
-git push -u origin "$BRANCH"
+git push -u origin "$(git branch --show-current)"
 ```
 
-- Rejected (non-fast-forward): `git pull --rebase origin "$BRANCH"`, then push again.
+- Push only after the user approved the plan (branch included). Pushing to `main` is fine
+  if that was the approved target — repo-side protection is GitHub's job, not yours.
+- Rejected (non-fast-forward): `git pull --rebase origin <branch>`, then push again.
 - Force push only on a personal branch nobody else pulled: `git push --force-with-lease`.
-  **NEVER force push to main/master.** If a force push looks necessary, stop and warn the user.
+  **NEVER force push to `main`/`master`** — that rewrites shared history. If it looks
+  necessary, stop and warn the user. (This is about destroying commits, not about which
+  branch you commit to.)
 
 ### Step 6: Create Pull Request
 
@@ -315,6 +317,6 @@ Updated to: DONE
 - If PR creation fails: Verify gh CLI is authenticated
 - If task is not READY_TO_COMMIT: Return and inform user
 - If the test gate has new failures: STOP before any git command. Only an explicit user waiver unblocks it.
-- **If currently on main/master:** DO NOT commit. Create branch first. Non-negotiable.
+- If currently on `main`/`master`: propose a branch in the plan. If the user wants `main`, commit on `main` — no push-back.
 
 See HARD RULES at the top of this file — they are the complete principles list.
