@@ -1,6 +1,6 @@
 ---
 name: feature-requirement
-description: Gera um Feature Requirement (documento de requisito) em Markdown a partir da discussao de uma feature — o doc canonico que plan-maker consome como input. Foca SO no requisito (o que / por que): JTBD, fluxo, criterios de aceite, regras de negocio, edge cases, escopo MoSCoW e metricas. NAO contem especificacao tecnica (contrato de API, modelo de dados, arquitetura) nem navegacao em codigo. Trigger: "feature requirement", "documenta a feature", "gera o requisito", ou ao final de uma conversa de product discovery.
+description: Gera um Feature Requirement (documento de requisito) em Markdown a partir da discussao de uma feature — o doc canonico que /plan consome como input. Foca SO no requisito (o que / por que): JTBD, fluxo, criterios de aceite, regras de negocio, edge cases, escopo MoSCoW e metricas. NAO contem especificacao tecnica (contrato de API, modelo de dados, arquitetura) nem navegacao em codigo. Trigger: "feature requirement", "documenta a feature", "gera o requisito", ou ao final de uma conversa de product discovery.
 ---
 
 # Feature Requirement Generator
@@ -9,7 +9,7 @@ Gera um **Feature Requirement** completo — o documento de requisito padronizad
 
 Foca **somente no requisito**: o **quê** precisa existir e o **porquê**. Descreve o problema, o fluxo, os criterios de aceite, as regras de negocio e o escopo — em linguagem de produto, observavel e testavel.
 
-**Este documento NAO contem especificacao tecnica.** Contrato de API, modelo de dados, migrations, escolha de arquitetura e decisoes de implementacao **NAO vao aqui** — o COMO e do `@tech-lead` / orchestrator. Quem escreve este doc **nao navega no codigo** — trabalha apenas do que foi discutido.
+**Este documento NAO contem especificacao tecnica.** Contrato de API, modelo de dados, migrations, escolha de arquitetura e decisoes de implementacao **NAO vao aqui** — o COMO e do `@tech-lead` / `/plan`. Quem escreve este doc **nao navega no codigo** — trabalha apenas do que foi discutido.
 
 O template vive AQUI (nesta skill), nao em nenhuma pasta de projeto — assim funciona em qualquer repo.
 
@@ -75,8 +75,8 @@ Com as informacoes suficientes, salve em `.specs/docs/feature-requirement-<slug>
 > **Status:** Rascunho | **Data:** [DATA_HOJE] | **Projeto:** [contexto do projeto]
 > **Tipo:** [Nova feature / Melhoria / Refatoracao de UX]
 > Documento de requisito (o que / por que). NAO contem especificacao tecnica — o COMO
-> (arquitetura, contrato de API, modelo de dados) e do @tech-lead / orchestrator.
-> Campos `(obrigatorio)` sao o minimo pro orchestrator/plan-maker planejar sem chutar.
+> (arquitetura, contrato de API, modelo de dados) e do @tech-lead.
+> Campos `(obrigatorio)` sao o minimo pro `/plan` planejar sem chutar.
 > Vazio desconhecido = `> _A definir_`.
 
 ---
@@ -156,7 +156,7 @@ Com as informacoes suficientes, salve em `.specs/docs/feature-requirement-<slug>
 ---
 
 ## Regras gerais
-- **Foco no requisito** — o quê e o porquê. NUNCA inclua contrato de API, modelo de dados, migrations, escolha de stack ou decisao de arquitetura. Isso e do `@tech-lead` / orchestrator.
+- **Foco no requisito** — o quê e o porquê. NUNCA inclua contrato de API, modelo de dados, migrations, escolha de stack ou decisao de arquitetura. Isso e do `@tech-lead` / `/plan`.
 - **Sem navegacao em codigo** — esta skill nao le o codigo-fonte; gera o doc a partir do que foi discutido e do contexto de produto ja coletado (inclusive via explorer barato, quando a documentacao era escassa).
 - **Nunca invente informacoes** — use `> _A definir_` para campos vazios e marque os criticos.
 - **Nao inclua tabelas completamente vazias** — se nao ha edge cases, coloque `> _Nenhum edge case identificado ate o momento._`

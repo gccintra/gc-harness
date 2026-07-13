@@ -20,7 +20,7 @@ Ativar SEMPRE que a tarefa envolver:
 - Criar uma nova tela (login, dashboard, landing page, modal, etc.)
 - Criar um componente visual para revisão/validação no Figma
 - O usuário pedir "criar no Figma", "inserir no Figma", "tela para o Figma"
-- O plano da task (orchestrator) listar escopo `frontend` com destino Figma
+- O task file (`.specs/tasks/<id>.md`) listar escopo `frontend` com destino Figma
 
 ---
 
