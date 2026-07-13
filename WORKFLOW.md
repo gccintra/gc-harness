@@ -21,12 +21,19 @@ output não deve poluir o contexto.
 1. /plan <issue ou descrição>   → cria task file em .specs/tasks/, PARA p/ aprovação
 2. (aprovado) implementa        → Opus inline, ou /implement <task-file>
 3. /test-runner                 → roda só os arquivos tocados
-4. /code-review                 → review do diff
-5. @committer <task-file>       → commit + PR (manual, único passo irreversível)
+4. /code-review                 → review do diff (builtin do Claude Code)
+5. @committer <task-file>       → gate de suite completa + commit + PR
+                                  (manual, único passo irreversível)
 ```
 
 Cada passo é **opcional**. Bug simples: fala o problema e deixa o Opus ir
 direto ao código. Feature grande: começa pelo `/plan`.
+
+`/code-review` é **builtin do Claude Code**, não vem do harness — no Codex e no
+OpenCode o review sai inline (`/implement` Step 7 já faz um).
+
+Commit, push e PR **só** pelo `@committer`. Não há skill avulsa de commit/push/PR
+— o gate de teste, o plano de commit e a aprovação vivem lá dentro.
 
 ## Agentes (cold start — use só quando precisa isolar)
 
@@ -49,10 +56,7 @@ Para buscas largas em repo grande dá pra delegar a `cavecrew-investigator`
 | `/implement` | Implementa a partir do task file ou da conversa |
 | `/test-runner` | Roda testes **escopados** (só arquivos do task) |
 | `/test-generator` | Gera testes para código novo |
-| `/code-review` | Review do diff atual |
 | `/security-checker` | Checagem de vulnerabilidades (OWASP) |
-| `/commit-changes` | Prepara commits convencionais |
-| `/create-pr` · `/pr-description` | Abre PR / gera descrição |
 | `/feature-requirement` | Gera documento de requisito de feature |
 | `/hotfix-mode` | Modo correção crítica |
 | `/lessons-writer` | Registra aprendizado não-óbvio (ver abaixo) |

@@ -85,9 +85,12 @@ o submódulo já se chama `.agents`, isso funciona sem symlink extra. Então:
   `commands/<nome>.md`. O nome `cx-*` vem do dirname (o command não tem `name`),
   então não colide com o `/plan` nativo nem com o command do Claude. Invoca com
   `$cx-plan`. Um source, zero cópia, zero script.
-- **Personas:** vivem só em Claude/OpenCode (agent + command). **Não** há persona
-  no Codex — subagents TOML são global-first, invisíveis no CLI e insustentáveis
-  sem script. Persona é fluxo de Claude/OpenCode.
+- **Personas:** também expostas ao Codex como skills `cx-*` (`cx-committer`,
+  `cx-designer`, `cx-product-manager`, `cx-tech-lead`, `cx-context-generator`) —
+  cada uma é um symlink para `commands/<persona>.md`, que por sua vez carrega
+  `agents/<persona>.md`. **Não** existem como *subagents* no Codex: subagents TOML
+  são global-first, invisíveis no CLI e insustentáveis sem script. No Codex a
+  persona roda na thread principal via skill; em Claude/OpenCode roda como agent.
 - **Prompts (`/prompts:nome`):** não usados (deprecated, globais).
 
 Os `cx-*` aparecem também nas listas de skill do Claude/OpenCode (namespaced,
