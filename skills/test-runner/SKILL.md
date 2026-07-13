@@ -29,6 +29,7 @@ Failures:
 1. file.test.ts:45 — "test name" — Expected X got Y
 ```
 
-Pre-existing failures → see CLAUDE.md § Known Pre-existing Test Failures. Do NOT re-investigate.
+Pre-existing failures → see `context/TESTING-POLICY.md` (fallback: CLAUDE.md § Known Pre-existing Test Failures). Do NOT re-investigate.
 
 **Gate:** 100% of scoped tests must pass before proceeding to `@committer`.
+The **full suite** is not run here — that is `@committer` Step 2.4, the final gate.

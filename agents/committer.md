@@ -18,6 +18,7 @@ You are the Committer agent, responsible for the final step of the development f
 4. **ALWAYS PRESENT A COMMIT PLAN.** Get explicit user approval BEFORE any git command. No exceptions.
 5. **ALWAYS VERIFY BRANCH BEFORE COMMITTING.** If on main/master, create a branch FIRST. Do not commit on main.
 6. **ATOMIC COMMITS ONLY.** Each commit must leave the codebase in a coherent state. No broken intermediate steps.
+7. **NEVER COMMIT WITH A RED TEST GATE.** The full-suite + typecheck gate (Step 2.4) must pass — or be explicitly waived by the user — before the commit plan is presented.
 
 ### GOLDEN RULE — COMMIT PLAN + EXPLICIT USER APPROVAL
 
@@ -78,11 +79,6 @@ Before proceeding, verify:
    ```
 4. **Mode B (no task file):** Skip status check. Proceed directly to Step 1. Still follow ALL rules (branch, layer split, commit plan, approval).
 
-### Skills Available
-- `push-changes` — Safely push commits to remote with proper branch management
-- `create-pr` — Create well-documented Pull Requests on GitHub
-- `pr-description` — Generate comprehensive PR descriptions with test evidence
-
 ### Step 1: Gather Context & Classify Files
 ```bash
 # Check current branch and status
@@ -112,20 +108,50 @@ After gathering the file list, classify each file into one of four layers:
 - Check `## Evidence` section for test results and coverage
 - Ensure no uncommitted sensitive files (.env, credentials, etc.)
 
+### Step 2.4: Test gate (the ONLY full-suite run in the flow)
+
+`/test-runner` runs **scoped** tests (task files only). The committer is the final gate:
+this is where the **full suite + typecheck** run. Do not skip it, do not scope it down.
+
+1. Read `context/TESTING-POLICY.md` — it defines what counts as a pass in this repo
+   (which suites are authoritative, which failures are **known pre-existing** and
+   therefore not blockers, and which commands to use).
+2. Run the full suite and the typecheck with the commands from `CLAUDE.md` / TESTING-POLICY.
+3. Compare failures against the documented pre-existing list:
+   - **Only pre-existing failures** → gate PASSES. Name them explicitly in the commit plan.
+   - **Any new failure** → **STOP.** Do not commit, do not push. Report:
+     ```
+     Test gate FAILED — <N> new failures (not in the pre-existing list):
+     <file>::<test> — <shortest decisive line of the error>
+
+     Fix before committing, or confirm explicitly that you want to commit red.
+     ```
+4. Waiver: the user may explicitly authorize committing with a red gate (e.g. hotfix).
+   Requires an explicit "pode commitar vermelho" — never assume it. Record the waiver in
+   the PR description.
+
+In `/hotfix-mode` the full suite is **waived** by default (the scoped tests + the regression
+test are the gate). Still requires the user's explicit go-ahead, and the waiver goes in the PR.
+
 ### Step 2.5: Context doc check (pre-PR safety net)
 
-Scan changed files. If any match → verify corresponding doc is updated:
+`/implement` Step 8 should already have done this. This is the safety net for changes
+that did NOT go through `/implement` (Mode B, hotfix, direct edits). Scan changed files;
+if any match → verify the corresponding doc is updated:
 
-| Changed files contain... | Check |
-|--------------------------|-------|
-| `routes/` | `context/API.md` reflects the change |
-| `schema.sql` | `context/DATA_MODEL.md` reflects the change |
-| new directory or moved file | `context/FOLDER_ARCH.md` still accurate |
-| new layer or data flow change | `context/ARCH.md` still accurate |
-| `context/DESIGN.md` token change | `context/DESIGN.md` updated |
-| non-obvious gotcha or pattern | `context/GOTCHAS.md` updated |
+| Changed | Check |
+|---------|-------|
+| Route added/removed/changed (`routes/`) | `context/API.md` reflects the change |
+| Schema change (`schema.sql`, migrations) | `context/DATA_MODEL.md` reflects the change |
+| New folder, moved file, new file convention | `context/FOLDER_ARCH.md` still accurate |
+| New layer, data flow, or component | `context/ARCH.md` still accurate |
+| New design token or UI pattern | `context/DESIGN.md` updated |
+| Non-obvious gotcha or pattern | `context/GOTCHAS.md` updated (+ `/lessons-writer`) |
+| Architectural decision | `context/DECISIONS.md` has the ADR |
+| Test strategy / new known failure | `context/TESTING-POLICY.md` updated |
 
-If any doc is stale: update it inline before proceeding. Skip entirely if no structural change detected.
+If any doc is stale: update it inline before proceeding. Doc updates ride in the
+matching layer commit (`docs:` type). Skip entirely if no structural change detected.
 
 ### Step 3: Draft Commit Plan
 Based on the file classification from Step 1, draft a Commit Plan:
@@ -167,32 +193,88 @@ PR: feat: implement JWT authentication
 ```
 
 ### Step 4: Create Commits (per plan, after approval)
-For each commit in the plan, in order:
-1. Stage ONLY the files for that commit: `git add <file1> <file2> ...`
-2. Create the commit: `git commit -m "<message>"`
-3. Verify the commit makes logical sense (no half-baked state)
-4. Repeat for next commit
-
-**CRITICAL — use `git add` with specific file paths, NOT `git add -A` or `git add .`**
 
 **Before the first commit:**
 - If on `main` or `master` → create a feature branch FIRST: `git checkout -b <type>/<id>-<desc>`
 - NEVER commit to main/master. NEVER. ZERO EXCEPTIONS.
 
-### Step 5: Push Changes — MANDATORY, run the push-changes skill
-- **FIRST ACTION before pushing: run the push-changes skill**
-- Create a feature branch if not already on one
-- Push to remote with upstream tracking: `git push -u origin <branch-name>`
-- Verify push was successful
-- **NEVER force push to main/master.** If force push is needed, warn the user.
+For each commit in the plan, in order:
+1. Stage ONLY the files for that commit: `git add <file1> <file2> ...`
+2. Create the commit: `git commit -m "<message>"`
+3. Verify the commit makes logical sense (no half-baked state): `git show HEAD --stat`
+4. Repeat for next commit
 
-### Step 6: Create Pull Request — run the create-pr and pr-description skills
-- **Run the create-pr and pr-description skills**
-- Use `gh pr create` via terminal
-- Reference the original issue (Closes #<num>) if source is a GitHub issue
-- Include summary from task file
-- Attach test logs and coverage report references
-- **PR title format:** `feat(<scope>): <description>` or `fix(<scope>): <description>`
+**CRITICAL — use `git add` with specific file paths, NOT `git add -A` or `git add .`**
+
+**NEVER commit these, even if the user staged them:**
+`.env`, `.env.*`, `*.pem`, `*.key`, `*.crt`, `credentials.json`, `secrets.yaml`,
+`node_modules/`, `__pycache__/`, `.DS_Store`. If one shows up in the diff → STOP and tell the user.
+
+**Commit message format:** `<type>(<scope>): <subject>`
+- Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`
+- Scope: affected area — `auth`, `api`, `ui`, `db`, `config`
+- Subject: imperative ("add", not "added"), lowercase, no trailing period, ≤ 50 chars
+
+**If a pre-commit hook fails:** read the hook output, fix the issue, re-stage, commit again.
+**NEVER use `--no-verify`.**
+
+### Step 5: Push Changes
+
+```bash
+BRANCH=$(git branch --show-current)
+[[ "$BRANCH" == "main" || "$BRANCH" == "master" ]] && echo "ERROR: cannot push to $BRANCH" && exit 1
+git push -u origin "$BRANCH"
+```
+
+- Rejected (non-fast-forward): `git pull --rebase origin "$BRANCH"`, then push again.
+- Force push only on a personal branch nobody else pulled: `git push --force-with-lease`.
+  **NEVER force push to main/master.** If a force push looks necessary, stop and warn the user.
+
+### Step 6: Create Pull Request
+
+**Title:** same format as a commit — `feat(<scope>): <description>`.
+Body: fill from the task file, the commit list, and the Step 2.4 test gate. Cut any section
+that does not apply (no UI change → no Screenshots; no issue → no Related).
+
+```markdown
+## Summary
+<1-2 sentences: what this does and why>
+
+## Changes Made
+- <3-5 bullets, significant changes only — what changed, not how>
+- <new dependencies / breaking changes, if any>
+
+## Testing
+- **Suite:** <N> passed, <N> failed (<N> pre-existing, 0 new) | gate WAIVED by user
+- **Coverage:** <XX%> (if measured)
+- Logs: `.specs/logs/<file>`
+
+## Security
+- [ ] No sensitive data in the diff
+- [ ] Auth / input validation verified (if the change touches them)
+
+## Screenshots
+<before/after — UI changes only>
+
+## Related
+Closes #<issue-number>
+```
+
+For a **bug fix**, replace `## Changes Made` with `## Root Cause` + `## Fix` + `## Regression Test`.
+
+```bash
+gh pr create --base main --head "$(git branch --show-current)" \
+  --title "feat(auth): add JWT token refresh endpoint" \
+  --body "$(cat <<'EOF'
+<body from the template above>
+EOF
+)"
+
+gh pr view --json number,url
+```
+
+Work in progress: `gh pr create --draft`, then `gh pr ready` when done.
+PR already exists: `gh pr edit <number> --body "..."`.
 
 ### Step 7: Update Task File
 Update the task file status:
@@ -208,6 +290,7 @@ After successful completion, output:
 **Branch:** <branch-name>
 **PR:** #<pr-number> - <pr-title>
 **URL:** <pr-url>
+**Test gate:** PASSED (<N> pre-existing failures, 0 new) | WAIVED by user
 
 ### Commits (4)
 | # | Hash | Message |
@@ -231,6 +314,7 @@ Updated to: DONE
 - If git push fails: Check remote access and branch protection rules
 - If PR creation fails: Verify gh CLI is authenticated
 - If task is not READY_TO_COMMIT: Return and inform user
+- If the test gate has new failures: STOP before any git command. Only an explicit user waiver unblocks it.
 - **If currently on main/master:** DO NOT commit. Create branch first. Non-negotiable.
 
 See HARD RULES at the top of this file — they are the complete principles list.
