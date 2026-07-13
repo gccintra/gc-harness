@@ -6,10 +6,16 @@ qualquer projeto.
 
 ## Instalação em um projeto
 
+Clone solto na raiz do projeto, **fora** do versionamento dele:
+
 ```bash
-git submodule add https://github.com/gccintra/gc-harness.git .agents
+git clone https://github.com/gccintra/gc-harness.git .agents
+printf '.agents\n.claude\n.codex\n.opencode\n.mcp.json\n' >> .gitignore
 ./.agents/install.sh
 ```
+
+O diretório **precisa** se chamar `.agents` — os symlinks e a descoberta de
+skills do Codex dependem desse caminho.
 
 O instalador cria somente links de integração:
 
@@ -19,6 +25,9 @@ O instalador cria somente links de integração:
 .opencode   -> .agents/runtime/opencode
 .mcp.json   -> .agents/runtime/claude/mcp.json
 ```
+
+O harness **não** é submódulo: o projeto consumidor não versiona nem fixa a
+revisão dele. Cada clone anda sozinho, no ritmo do seu `git pull`.
 
 As skills vivem fisicamente **apenas** em `.agents/skills`. Cada runtime
 (`runtime/claude`, `runtime/codex`, `runtime/opencode`) acessa as mesmas skills
@@ -34,22 +43,21 @@ quiser. O `opencode.json` já lê `../AGENTS.md` do consumidor quando existir.
 
 ```bash
 git -C .agents pull --ff-only
-git add .agents
 ```
 
-O segundo comando fixa no projeto consumidor a revisão registrada do submódulo —
-ou seja, cada projeto controla **quando** puxa o update (nada quebra sozinho).
+Cada projeto puxa quando quiser — o update é local àquele clone e não toca em
+mais nenhum projeto.
 
 ## Customização por projeto
 
-O submódulo aponta para uma revisão fixa por projeto, então há dois caminhos
-para divergir sem sujar o harness compartilhado:
+Como o clone é independente, há dois caminhos para divergir sem sujar o harness
+compartilhado:
 
 - **Branch por projeto:** `git -C .agents checkout -b projeto-x`, customize lá,
   nunca dê merge para `main`.
 - **Skill local:** crie um diretório de skill real em `.claude/skills/` que
-  **não** seja o link do submódulo (ex.: aponte só skills selecionadas por
-  symlink e mantenha as locais como pastas físicas). Fica só naquele projeto.
+  **não** venha do harness (ex.: aponte só skills selecionadas por symlink e
+  mantenha as locais como pastas físicas). Fica só naquele projeto.
 
 ## Estrutura
 
@@ -78,7 +86,7 @@ vale para todas.
 
 O Codex é **global-first** para config/agents (lê de `~/.codex`, não do `.codex`
 do projeto), mas lê **skills por projeto** de `.agents/skills` nativamente. Como
-o submódulo já se chama `.agents`, isso funciona sem symlink extra. Então:
+o clone do harness já se chama `.agents`, isso funciona sem symlink extra. Então:
 
 - **Workflows** (`plan`, `implement`, `hotfix-mode`): expostos ao Codex como
   skills **`cx-*`**, onde cada `skills/cx-<nome>/SKILL.md` é um **symlink** para
